@@ -1,0 +1,19 @@
+{
+    "name":"MobileGameFramework",
+    "version":"0.1",
+    "description":"移动端游戏框架",
+    "main":"index.js",
+    "dependencies":{
+        "express":"*",
+        "socket.io":"*",
+        "mongodb":"*",
+        "cluster":"*",
+        "body-parser":"*"
+    },
+    "scripts":{
+        "test":""
+    },
+    "keywords":["移动端","游戏","游戏框架"],
+    "author":"Mr.Panda",
+    "license":""
+}
