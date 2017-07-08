@@ -1,8 +1,8 @@
 # Mobile Game Framework
-
 > 这是一个游戏框架  优先解决移动端的兼容
 
 ## 架构
+> 前后端整体的架构
 
 ### 服务端
 > node.js mongodb nginx
