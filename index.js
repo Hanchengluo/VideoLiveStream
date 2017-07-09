@@ -4,34 +4,65 @@ const cluster = require('cluster')
 const bodyParser = require('body-parser')
 const Websocket = require('socket.io')
 const os = require('os')
-
-
-const view = require('./page/view.js')
+const fs = require('fs')
 const app = express()
-
-
 let Module = new Object()
 
 
-Websocket.listen(88)
-app.listen(80)
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+
+const map = [1,2,3,4,5,6,7,8,9,0,'a','A','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z']
+const Tokin = function(){
+    return (
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + 
+        map[Math.round(Math.random()*60)] + '-' + 
+        Math.round(Math.random()*10) + 
+        Math.round(Math.random()*10) + 
+        Math.round(Math.random()*10) + 
+        Math.round(Math.random()*10)
+    )
+}
 
 
-view({index: __dirname + '/page/view/index.html'}, (data)=>{
-    Module = data
-})
+exports.listen = function(port){
+    app.listen(port)
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: true}))
+}
 
 
-// index
-app.get('/', (req, res)=>{
-    res.send(Module.index({
-        lang: 'zh',
-        title: 'hello',
-        head: `<link rel="stylesheet" href="css/awesome/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="css/style.css"/>
-        <script src="js/jquery.js"></script>
-        <script src="js/index.js"></script>`
-    }))
-})
+exports.page = function(page){
+    let name = Object.keys(page)
+    let sum = 0
+    let obj = new Object
+    for(let i of name){
+        try{
+            fs.readFile(page[i], function(Error, data){
+                obj[i] = new Function('data', 'return `' + data.toString() + '`')
+                if(sum == name.length-1){
+                    Module = obj
+                }
+                sum += 1
+            })
+        }catch(err){
+            console.log(err)
+        }
+    }
+}
+
+
+exports.view = function(name, value, Method){
+    app[Method != undefined ? Method : 'get'](name, function(req, res){
+        res.cookie('SocketId', Tools.tokin(), {path: '/'})
+        res.send(Module[name] != undefined ? Module[name](value) : value)
+    })
+}
