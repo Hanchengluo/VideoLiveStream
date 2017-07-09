@@ -15,6 +15,7 @@ exports.listen = function(port){
     app.listen(port)
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true}))
+    app.use(express.static(`${__dirname}/module`))
 }
 
 
@@ -36,6 +37,29 @@ exports.page = function(page){
         }
     }
 }
+
+
+app.get('/test', function(req, res){
+    res.cookie('SocketId', (
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + '-' + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10)
+        ), {path: '/'})
+    res.sendFile( __dirname + '/page/view/index.html')
+})
 
 
 exports.view = function(name, value, Method){

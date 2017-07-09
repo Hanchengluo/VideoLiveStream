@@ -6,11 +6,7 @@ app.page({'/': __dirname + '/page/view/index.html'})
 
 app.view('/', {
     lang: 'zh',
-    title: 'hello',
-    head: `<link rel="stylesheet" href="css/awesome/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <script src="js/jquery.js"></script>
-    <script src="js/index.js"></script>`
+    title: 'MobileGameFramework',
 })
 
 app.view('/video', 'hrllp', 'post')
