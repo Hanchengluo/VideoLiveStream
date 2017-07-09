@@ -7,7 +7,6 @@
         "express":"*",
         "socket.io":"*",
         "mongodb":"*",
-        "cluster":"*",
         "body-parser":"*"
     },
     "scripts":{
