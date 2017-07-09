@@ -6,31 +6,9 @@ const Websocket = require('socket.io')
 const os = require('os')
 const fs = require('fs')
 const app = express()
-let Module = new Object()
-
 
 
 const map = [1,2,3,4,5,6,7,8,9,0,'a','A','b','B','c','C','d','D','e','E','f','F','g','G','h','H','i','I','j','J','k','l','L','m','M','n','N','o','O','p','P','q','Q','r','R','s','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z']
-const Tokin = function(){
-    return (
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + 
-        map[Math.round(Math.random()*60)] + '-' + 
-        Math.round(Math.random()*10) + 
-        Math.round(Math.random()*10) + 
-        Math.round(Math.random()*10) + 
-        Math.round(Math.random()*10)
-    )
-}
 
 
 exports.listen = function(port){
@@ -49,7 +27,7 @@ exports.page = function(page){
             fs.readFile(page[i], function(Error, data){
                 obj[i] = new Function('data', 'return `' + data.toString() + '`')
                 if(sum == name.length-1){
-                    Module = obj
+                    global.Module = obj
                 }
                 sum += 1
             })
@@ -62,7 +40,24 @@ exports.page = function(page){
 
 exports.view = function(name, value, Method){
     app[Method != undefined ? Method : 'get'](name, function(req, res){
-        res.cookie('SocketId', Tools.tokin(), {path: '/'})
+        res.cookie('SocketId', (
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + 
+            map[Math.round(Math.random()*60)] + '-' + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10) + 
+            Math.round(Math.random()*10)
+        ), {path: '/'})
         res.send(Module[name] != undefined ? Module[name](value) : value)
     })
 }
