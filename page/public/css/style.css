@@ -1,0 +1,63 @@
+* {margin:0;font-family:consolas, 微软雅黑;font-size:13px;transition:0.5s;}
+input,button,select,textarea {outline:none;}
+a {text-decoration:none;}
+a:hover {text-decoration:none;}
+.click-on,button:hover {cursor:pointer}
+.Head {
+    position: relative;
+    width: 100%;
+    height: 5vh;
+}
+
+.live {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    background-color: #000;
+    text-align: center;
+}
+
+#live-stream {
+    margin: 0 auto;
+}
+
+.live-play {
+    position: absolute;
+    height: 100%;
+    opacity: 0;
+}
+
+.live-stream-controls {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.control-button {
+    position: absolute;
+    height: 15px;
+    top:12.5px;
+    color: #ddd;
+}
+
+.control-button i {
+    font-size: 15px;
+}
+
+.control-button i:hover {
+    color: #fff;
+}
+
+.play-pause {
+    left: 12.5px;
+}
+
+.live-stream-plan {
+    position: absolute;
+    height: 2px;
+    left: 0;
+    top:-1px;
+    background-color: #f00222;
+}

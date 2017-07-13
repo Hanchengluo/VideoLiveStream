@@ -1,11 +1,13 @@
 CACHE MANIFEST
 # 2017-7-13 9:40  Panda
-# 1499916706515
+# 1499922414328
 /
-/public/css
-/public/javaScript
+/public/css/awesome/css/font-awesome.min.css
+/public/css/style.css
+/public/javascript/exports/socket.io.js
+/public/javascript/exports/jquery.js
 
-NETWORK
+NETWORK:
 *
 
-FALLBACK
+FALLBACK:

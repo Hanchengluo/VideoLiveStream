@@ -69,7 +69,7 @@ exports.appcache = () => {
             for(let i of config.CACHEMANIFEST){
                 appcache += i + os.EOL
             }
-            appcache += os.EOL + 'NETWORK' + os.EOL
+            appcache += os.EOL + 'NETWORK:' + os.EOL
             if(config.NETWORK.length == 0){
                 appcache += '*' + os.EOL
             }else{
@@ -77,7 +77,7 @@ exports.appcache = () => {
                     appcache += i + os.EOL
                 }
             }
-            appcache += os.EOL + 'FALLBACK' + os.EOL
+            appcache += os.EOL + 'FALLBACK:' + os.EOL
             let FALLBACK = Object.keys(config.FALLBACK)
             if(FALLBACK.length != 0){
                 for(let i of FALLBACK){
@@ -86,7 +86,9 @@ exports.appcache = () => {
             }
             // 更新文件
             fs.writeFile(INDEXPATH + '/page/appcache/package.appcache', appcache, 'utf8', (err)=>{
-                if(err) throw err
+                if(Error){
+                    console.log(Error)
+                }
             })
         }
     })
