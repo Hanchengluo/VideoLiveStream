@@ -1,7 +1,7 @@
 {
-    "name": "YunFile",
+    "name": "LiveStream",
     "version": "1.0",
-    "description": "西魏云",
+    "description": "直播推流系统",
     "main": "index.js",
     "dependencies": {
         "body-parser": "^1.17.2",
@@ -10,11 +10,7 @@
         "multer": "^1.3.0",
         "socket.io": "^2.0.3"
     },
-    "keywords": [
-        "西魏",
-        "云",
-        "存储"
-    ],
+    "keywords": ["live","stream","html5"],
     "author": "Mr.Panda",
     "license": ""
 }
