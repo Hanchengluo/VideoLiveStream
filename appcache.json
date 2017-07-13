@@ -4,7 +4,7 @@
         "/public/css/awesome/css/font-awesome.min.css",
         "/public/css/style.css",
         "/public/javascript/exports/socket.io.js",
-        "/public/javascript/exports/jquery.js"
+        "/public/javascript/exports/vue.js"
     ],
     "NETWORK":[],
     "FALLBACK":{

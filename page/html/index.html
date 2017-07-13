@@ -10,20 +10,51 @@
         <link rel="stylesheet" href="/public/css/awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="/public/css/style.css"/>
         <script src="/public/javascript/exports/socket.io.js"></script>
-        <script src="/public/javascript/exports/jquery.js"></script>
+        <script src="/public/javascript/exports/vue.js"></script>
         <script src="/public/javascript/main.js"></script>
-        <style id="Global-Style"></style>
     </head>
     <body>
-        <div class="Head">
-        </div>
-        <div class="live">
-            <div class="live-play">
-                <video autoplay src="/public/media/1.webm" id="live-stream" height="100%"></video>
-                <div class="live-stream-controls">
-                    <div class="live-stream-plan"></div>
-                    <div class="control-button click-on play-pause" data-play="true">
-                        <i class="fa fa-pause"></i>
+        <div class="Head"></div>
+        <div class="live" id="LiveBody">
+            <div class="live-play" v-bind:style="LivePlayStyle">
+                <video preload src="/public/media/1.webm" id="LiveStream" height="100%"></video>
+                <div class="live-stream-controls" v-bind:style="LiveStreamControls">
+                    <div class="live-stream-controls-resize"></div>
+                    <div class="live-stream-plan" id="LiveStreamPlan" v-bind:style="LiveStreamPlan">
+                        <div class="live-stream-plan-resize" v-bind:style="LiveStreamPlanStyle"></div>
+                    </div>
+                    <div class="control-button click-on play-pause" v-on:click="playPause" v-bind:data-play="playPauseType">
+                        <i class="fa" v-bind:class="{'fa-pause':VideoPause, 'fa-play':VideoPlay}"></i>
+                    </div>
+                    <div id="VideoVolumeControl">
+                        <div class="control-button click-on volume" v-on:click="Volume" v-bind:data-volume="volumeType" id="VideoVolume">
+                            <i class="fa" v-bind:class="{'fa-volume-down':volumedown, 'fa-volume-off':volumeoff}"></i>
+                        </div>
+                        <div class="control-button click-on volume-resize" id="VideoVolumeResize" v-bind:style="VideoVolumeStyle">
+                            <div class="volume-resize-body" v-bind:style="VideoVolumeResizeStyle" id="volume-resize">
+                                <span>&#9679;</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-button click-on VideoFullScreen" id="VideoFullScreen" v-bind:data-screen="FullScreenType">
+                        <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
+                            <g class="ytp-fullscreen-button-corner-0">
+                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-23"></use>
+                                <path class="ytp-svg-fill" d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z" id="ytp-id-23"></path>
+                            </g>
+                            <g class="ytp-fullscreen-button-corner-1">
+                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-24"></use>
+                                <path class="ytp-svg-fill" d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z" id="ytp-id-24"></path>
+                            </g>
+                            <g class="ytp-fullscreen-button-corner-2">
+                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-25"></use>
+                                <path class="ytp-svg-fill" d="m 24,24 -4,0 0,2 L 26,26 l 0,-6 -2,0 0,4 0,0 z" id="ytp-id-25"></path>
+                            </g>
+                            <g class="ytp-fullscreen-button-corner-3">
+                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-26"></use>
+                                <path class="ytp-svg-fill" d="M 12,20 10,20 10,26 l 6,0 0,-2 -4,0 0,-4 0,0 z" id="ytp-id-26"></path>
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </div>

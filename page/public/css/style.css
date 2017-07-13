@@ -3,6 +3,7 @@ input,button,select,textarea {outline:none;}
 a {text-decoration:none;}
 a:hover {text-decoration:none;}
 .click-on,button:hover {cursor:pointer}
+
 .Head {
     position: relative;
     width: 100%;
@@ -33,6 +34,13 @@ a:hover {text-decoration:none;}
     height: 40px;
     bottom: 0;
     background-color: rgba(0,0,0,0.5);
+    left: 0;
+    padding-left: 2px;
+    opacity: 0;
+}
+
+.live-stream-controls:hover {
+    opacity: 1;
 }
 
 .control-button {
@@ -43,7 +51,7 @@ a:hover {text-decoration:none;}
 }
 
 .control-button i {
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .control-button i:hover {
@@ -59,5 +67,76 @@ a:hover {text-decoration:none;}
     height: 2px;
     left: 0;
     top:-1px;
+    width: 100%;
+}
+
+
+
+.volume {
+    left: 0;
+    top: 11px;
+}
+
+.volume i {
+    font-size: 15px;
+}
+
+.volume-resize {
+    left: 20px;
+    width: 100px;
+    height: 2px;
+    background-color: #999;
+    margin-top: 5px;
+}
+
+.volume-resize-body {
+    height: 2px;
     background-color: #f00222;
+    width: 0;
+    line-height: 2px;
+    color: #f00222;
+    text-align: right;
+    margin-left: -1px;
+    font-size: 3px;
+    position: relative;
+}
+
+.volume-resize-body span {
+    position: absolute;
+    right: -2px;
+}
+
+#VideoVolumeControl {
+    position: absolute;
+    width: 150px;
+    left: 50px;
+    bottom: 2px;
+    top: 2px;
+}
+
+
+
+.VideoFullScreen {
+    right: 5px;
+    height: 30px;
+    top: 5px;
+    width: 30px;
+}
+
+.ytp-svg-fill {
+    fill: #fff
+}
+
+.live-stream-plan-resize {
+    width: 0;
+    background-color: #f00222;
+    height: 100%;
+}
+
+.live-stream-controls-resize {
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    top:-10px;
+    left: 0;
 }
