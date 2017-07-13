@@ -1,18 +1,20 @@
 {
-    "name":"MobileGameFramework",
-    "version":"0.1",
-    "description":"移动端游戏框架",
-    "main":"index.js",
-    "dependencies":{
-        "express":"*",
-        "socket.io":"*",
-        "mongodb":"*",
-        "body-parser":"*"
+    "name": "YunFile",
+    "version": "1.0",
+    "description": "西魏云",
+    "main": "index.js",
+    "dependencies": {
+        "body-parser": "^1.17.2",
+        "express": "^4.15.3",
+        "mongodb": "^2.2.30",
+        "multer": "^1.3.0",
+        "socket.io": "^2.0.3"
     },
-    "scripts":{
-        "test":""
-    },
-    "keywords":["移动端","游戏","游戏框架"],
-    "author":"Mr.Panda",
-    "license":""
+    "keywords": [
+        "西魏",
+        "云",
+        "存储"
+    ],
+    "author": "Mr.Panda",
+    "license": ""
 }
