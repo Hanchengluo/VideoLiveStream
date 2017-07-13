@@ -14,46 +14,43 @@
         <script src="/public/javascript/main.js"></script>
     </head>
     <body>
-        <div class="Head"></div>
+        <!-- 头部 -->
+        <div class="Head">
+        </div>
+        <!-- 播放器区域 -->
         <div class="live" id="LiveBody">
+            <!-- 播放器 -->
             <div class="live-play" v-bind:style="LivePlayStyle">
-                <video preload src="/public/media/1.webm" id="LiveStream" height="100%"></video>
+                <!-- 视频 -->
+                <video preload src="/public/media/VideoTest.webm" id="LiveStream" height="100%"></video>
+                <!-- 控制条 -->
                 <div class="live-stream-controls" v-bind:style="LiveStreamControls">
+                    <!-- 进度条hover监听区 -->
                     <div class="live-stream-controls-resize"></div>
+                    <!-- 进度条 -->
                     <div class="live-stream-plan" id="LiveStreamPlan" v-bind:style="LiveStreamPlan">
                         <div class="live-stream-plan-resize" v-bind:style="LiveStreamPlanStyle"></div>
                     </div>
+                    <!-- 暂停播放 -->
                     <div class="control-button click-on play-pause" v-on:click="playPause" v-bind:data-play="playPauseType">
                         <i class="fa" v-bind:class="{'fa-pause':VideoPause, 'fa-play':VideoPlay}"></i>
                     </div>
+                    <!-- 音量控制 -->
                     <div id="VideoVolumeControl">
                         <div class="control-button click-on volume" v-on:click="Volume" v-bind:data-volume="volumeType" id="VideoVolume">
                             <i class="fa" v-bind:class="{'fa-volume-down':volumedown, 'fa-volume-off':volumeoff}"></i>
                         </div>
                         <div class="control-button click-on volume-resize" id="VideoVolumeResize" v-bind:style="VideoVolumeStyle">
-                            <div class="volume-resize-body" v-bind:style="VideoVolumeResizeStyle" id="volume-resize">
-                                <span>&#9679;</span>
-                            </div>
+                            <div class="volume-resize-body" v-bind:style="VideoVolumeResizeStyle" id="volume-resize"><span>&#9679;</span></div>
                         </div>
                     </div>
+                    <!-- 全屏控制 -->
                     <div class="control-button click-on VideoFullScreen" id="VideoFullScreen" v-bind:data-screen="FullScreenType">
                         <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
-                            <g class="ytp-fullscreen-button-corner-0">
-                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-23"></use>
-                                <path class="ytp-svg-fill" d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z" id="ytp-id-23"></path>
-                            </g>
-                            <g class="ytp-fullscreen-button-corner-1">
-                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-24"></use>
-                                <path class="ytp-svg-fill" d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z" id="ytp-id-24"></path>
-                            </g>
-                            <g class="ytp-fullscreen-button-corner-2">
-                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-25"></use>
-                                <path class="ytp-svg-fill" d="m 24,24 -4,0 0,2 L 26,26 l 0,-6 -2,0 0,4 0,0 z" id="ytp-id-25"></path>
-                            </g>
-                            <g class="ytp-fullscreen-button-corner-3">
-                                <use class="ytp-svg-shadow" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#ytp-id-26"></use>
-                                <path class="ytp-svg-fill" d="M 12,20 10,20 10,26 l 6,0 0,-2 -4,0 0,-4 0,0 z" id="ytp-id-26"></path>
-                            </g>
+                            <path class="ytp-svg-fill" d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z" id="ytp-id-23"></path>
+                            <path class="ytp-svg-fill" d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z" id="ytp-id-24"></path>
+                            <path class="ytp-svg-fill" d="m 24,24 -4,0 0,2 L 26,26 l 0,-6 -2,0 0,4 0,0 z" id="ytp-id-25"></path>
+                            <path class="ytp-svg-fill" d="M 12,20 10,20 10,26 l 6,0 0,-2 -4,0 0,-4 0,0 z" id="ytp-id-26"></path>
                         </svg>
                     </div>
                 </div>
