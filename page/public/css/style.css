@@ -400,4 +400,39 @@
     height: 40px;
     background-color: #ddd;
     border-top:1px solid #999; 
+    position: relative;
+}
+
+.menu-user-controls-cog {
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    width: 40px;
+    height: 25px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 23px;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-left: 10px;
+    color: #999;
+}
+
+.menu-user-controls-cog:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.menu-user-controls-exit {
+    position: absolute;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    width: 100px;
+    height: 25px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 23px;
+    font-size: 12px;
+    top: 8px;
+    right: 10px;
+    color: #000;
 }
