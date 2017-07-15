@@ -5,8 +5,9 @@ const configuration = require('./configuration.js')
 const router = require('./router/root.js')
 const express = require('express')
 const bodyParser = require('body-parser')
-const Websocket = require('socket.io').listen(configuration.websocket.port)
+const Websocket = require('socket.io').listen(configuration.websocket.port, '127.0.0.1')
 const app = express()
+const fs = require('fs')
 
 
 // 全局变量
@@ -32,10 +33,10 @@ app.use(configuration.storage.path, express.static(`${__dirname}${configuration.
 app.use('/public', express.static(`${__dirname}/page/public`))
 app.use('/appcache', express.static(`${__dirname}/page/appcache`))
 app.use('/', router)
-app.listen(configuration.express.port)
+app.listen(configuration.express.port, '127.0.0.1')
 
 
 // WebSocket连接
 Websocket.sockets.on('connection', (socket) => {
-    console.log('socket', socket.id)
+    
 })

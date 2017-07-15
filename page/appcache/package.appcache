@@ -1,13 +1,18 @@
 CACHE MANIFEST
 # 2017-7-13 9:40  Panda
-# 1499966531727
-/
+# 1500071459895
 /public/css/awesome/css/font-awesome.min.css
+/public/css/awesome/fonts/fontawesome-webfont.woff2?v=4.7.0
+/public/css/animate.css
+/public/css/loaders.css
 /public/css/style.css
 /public/javascript/exports/socket.io.js
 /public/javascript/exports/vue.js
+/public/javascript/main.js
 
 NETWORK:
+/LiveStreamPath
+/LiveStream
 *
 
 FALLBACK:

@@ -12,7 +12,7 @@ module.exports = {
         collection:["User", "Storage"]              // mongodb表
     },
     websocket:{
-        port:81    // websocket绑定端口
+        port:88    // websocket绑定端口
     },
     storage:{
        path:"/Storage"   // 文件存储目录

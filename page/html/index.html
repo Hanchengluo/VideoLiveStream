@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html manifest="/appcache/package.appcache" lang="zh">
+<html lang="zh">
     <head>
-        <title>直播推流测试</title>
+        <title>视频直播推流系统</title>
 	    <meta charset="UTF-8"/>
         <meta name="renderer" content="webkit"/>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="/public/media/image/favicon.png" mce_href="favicon.ico" rel="icon" type="image/x-icon"/> 
         <link rel="stylesheet" href="/public/css/awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="/public/css/animate.css"/>
+        <link rel="stylesheet" href="/public/css/loaders.css"/>
         <link rel="stylesheet" href="/public/css/style.css"/>
         <script src="/public/javascript/exports/socket.io.js"></script>
         <script src="/public/javascript/exports/vue.js"></script>
@@ -15,37 +17,92 @@
     </head>
     <body>
         <!-- 头部 -->
-        <div class="Head">
+        <div class="Head animated fadeInDown" id="Head">
+            <div class="head-userlogo click-on" title="用户"></div>
+            <div class="head-bell" title="通知"><i class="fa fa-bell-o click-on"></i></div>
+            <div class="Head-logo" title="视频和直播"></div>
+            <div class="head-menu" title="菜单"><i class="fa fa-bars click-on"></i></div>
+            <div class="sercha click-on">
+                <input type="text" title="请输入关键字搜索" placeholder="搜索">
+                <button><i class="fa fa-search"></i></button>
+            </div>
+            <div class="menu-tips" v-bind:class="{'menu-tips-on':MenuTips}">
+                <div class="menu-tips-ul">
+                    <div class="click-on">首页</div>
+                    <div class="click-on">电影</div>
+                    <div class="click-on">综艺</div>
+                    <div class="click-on">音乐</div>
+                    <div class="click-on">舞蹈</div>
+                    <div class="click-on">纪录片</div>
+                    <div class="click-on">科技</div>
+                    <div class="click-on">军事</div>
+                    <div class="click-on">搞笑</div>
+                    <div class="click-on">动画</div>
+                    <div class="click-on">时尚</div>
+                    <div class="click-on">游戏</div>
+                    <div class="click-on">社会</div>
+                </div>
+            </div>
+            <div class="menu-user" v-bind:class="{'menu-user-on:MenuUser}">
+                <div class="menu-border-arrow"></div>
+                <div class="menu-user-data">
+                    <div class="menu-user-name"><a href="#">xivistudios@gmail.com</a></div>
+                    <div class="menu-user-info">
+                        <div class="menu-user-info-logo">
+                            <div class="menu-user-info-logo-img"></div>
+                        </div>
+                        <div class="menu-user-info-msg">
+                            <p><a href="#">10</a>订阅</p>
+                            <p><a href="#">10</a>粉丝</p>
+                            <p><a href="#">10</a>视频</p>
+                            <p><a href="#">10</a>留言</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-user-controls">
+                </div>
+            </div>
         </div>
+        <!-- 头部 end-->
         <!-- 播放器区域 -->
-        <div class="live" id="LiveBody">
+        <div class="live fadeInUp animated" id="LiveBody">
+            <!-- 加载动画 -->
+            <div class="LiveStreamLoadAnimation pacman" v-bind:class="{ 'LiveStreamLoadAnimation-on' : LiveStreamLoadAnimation }" v-bind:style="LiveStreamLoadAnimationStyle">
+                <div></div><div></div><div></div><div></div><div></div>
+            </div>
+            <!-- 加载动画 end-->
             <!-- 播放器 -->
             <div class="live-play" v-bind:style="LivePlayStyle">
                 <!-- 视频 -->
-                <video preload src="/public/media/VideoTest.webm" id="LiveStream" height="100%"></video>
+                <video preload v-bind:src="LiveStreamSrc" id="LiveStream" height="100%" width="100%" title="视频播放器"></video>
+                <!-- 视频 end-->
                 <!-- 控制条 -->
-                <div class="live-stream-controls" v-bind:style="LiveStreamControls">
+                <div class="live-stream-controls" v-bind:style="LiveStreamControls">                   
                     <!-- 进度条hover监听区 -->
                     <div class="live-stream-controls-resize"></div>
+                    <!-- 进度条hover监听区 end-->
                     <!-- 进度条 -->
-                    <div class="live-stream-plan" id="LiveStreamPlan" v-bind:style="LiveStreamPlan">
+                    <div class="live-stream-plan click-on" id="LiveStreamPlan" v-bind:style="LiveStreamPlan">
                         <div class="live-stream-plan-resize" v-bind:style="LiveStreamPlanStyle"></div>
                     </div>
+                    <!-- 进度条 end-->
                     <!-- 暂停播放 -->
-                    <div class="control-button click-on play-pause" v-on:click="playPause" v-bind:data-play="playPauseType">
+                    <div class="control-button click-on play-pause" v-on:click="playPause" v-bind:data-play="playPauseType" title="暂停/播放">
                         <i class="fa" v-bind:class="{'fa-pause':VideoPause, 'fa-play':VideoPlay}"></i>
                     </div>
+                    <!-- 暂停播放 end-->
                     <!-- 音量控制 -->
                     <div id="VideoVolumeControl">
-                        <div class="control-button click-on volume" v-on:click="Volume" v-bind:data-volume="volumeType" id="VideoVolume">
+                        <div class="control-button click-on volume" v-on:click="Volume" v-bind:data-volume="volumeType" id="VideoVolume" title="静音">
                             <i class="fa" v-bind:class="{'fa-volume-down':volumedown, 'fa-volume-off':volumeoff}"></i>
                         </div>
                         <div class="control-button click-on volume-resize" id="VideoVolumeResize" v-bind:style="VideoVolumeStyle">
                             <div class="volume-resize-body" v-bind:style="VideoVolumeResizeStyle" id="volume-resize"><span>&#9679;</span></div>
                         </div>
                     </div>
+                    <!-- 音量控制 end-->
                     <!-- 全屏控制 -->
-                    <div class="control-button click-on VideoFullScreen" id="VideoFullScreen" v-bind:data-screen="FullScreenType">
+                    <div class="control-button click-on VideoFullScreen" id="VideoFullScreen" v-bind:data-screen="FullScreenType" title="全屏">
                         <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
                             <path class="ytp-svg-fill" d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z" id="ytp-id-23"></path>
                             <path class="ytp-svg-fill" d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z" id="ytp-id-24"></path>
@@ -53,8 +110,12 @@
                             <path class="ytp-svg-fill" d="M 12,20 10,20 10,26 l 6,0 0,-2 -4,0 0,-4 0,0 z" id="ytp-id-26"></path>
                         </svg>
                     </div>
+                    <!-- 全屏控制 end-->
                 </div>
+                <!-- 控制条 end-->
             </div>
+            <!-- 播放器 end-->
         </div>
+        <!-- 播放器区域 end-->
     </body>
 </html>
