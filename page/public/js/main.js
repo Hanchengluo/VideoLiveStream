@@ -134,7 +134,7 @@ window.onload = () => {
             // 通知
             Notification:false,
             // 推流地址
-            LiveStreamSrc:'./public/media/stream/VideoTest.webm',
+            LiveStreamSrc:'./public/media/stream/VideoTest.mp4',
             // 控制条显示隐藏
             LiveStreamControls:{
                 'opacity':'1'
@@ -297,10 +297,11 @@ window.onload = () => {
                 }
             },
             // 视频播放位置改变
-            timeupdate: () => {
-                Module.LiveStreamPlanStyle.width = document.getElementById('LiveStream').currentTime / document.getElementById('LiveStream').duration * 100 + '%', 
-                localStorage.VideoPlayCurrentTime = document.getElementById('LiveStream').currentTime
-                let key = Math.ceil(document.getElementById('LiveStream').currentTime) // 当前播放时间
+            timeupdate: (Event) => {
+                console.log(Event.target.currentTime, Event.target.duration)
+                Module.LiveStreamPlanStyle.width = Event.target.currentTime / Event.target.duration * 100 + '%', 
+                localStorage.VideoPlayCurrentTime = Event.target.currentTime
+                let key = Math.ceil(Event.target.currentTime) // 当前播放时间
                 // 这里是避免重复触发的函数
                 if(key != StreamSubtitles.play){
                     StreamSubtitles.play = key
