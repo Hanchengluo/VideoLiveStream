@@ -298,7 +298,6 @@ window.onload = () => {
             },
             // 视频播放位置改变
             timeupdate: (Event) => {
-                console.log(Event.target.currentTime, Event.target.duration)
                 Module.LiveStreamPlanStyle.width = Event.target.currentTime / Event.target.duration * 100 + '%', 
                 localStorage.VideoPlayCurrentTime = Event.target.currentTime
                 let key = Math.ceil(Event.target.currentTime) // 当前播放时间
