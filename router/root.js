@@ -6,12 +6,6 @@
 const Module = require('../module/module.js')
 const express = require('express')
 const router = express.Router()
-const ffmpeg = require('fluent-ffmpeg')
-
-// 暴露出路由
-module.exports = router
-
-
 
 
 // 该路由使用的中间件
@@ -25,22 +19,18 @@ router.use(function(req, res, next){
 
 // 定义网站主页的路由
 router.get('/', (req, res) => {
-    if(req.query.stream){
-        res.cookie('UserTokin', Module.string12bit(), {path: '/'})
-        res.sendFile(`${INDEXPATH}/page/html/index.html`)
-    }else{
-        res.location('/')
-    }
+    res.cookie('UserTokin', Module.string12bit(), {path: '/'})
+    res.sendFile(`${INDEXPATH}/page/html/index.html`)
 })
 
 
-// 获取直播流地址
-router.get('/LiveStreamPath', (req, res) => {
-    if(req.query.stream){
-        res.send({Status:200})
-    }else{
-        res.send({Status:404})
-    }
+// 获取弹幕
+router.get('/Subtitles', (req, res) => {
+    res.send({
+        '10':{time:10, text:'这是一个测试弹幕'},
+        '20':{time:20, text:'这是一个测试弹幕'},
+        '30':{time:30, text:'这是一个测试弹幕'},
+    })
 })
 
 
@@ -50,3 +40,7 @@ router.post('/uploadFile', (req, res) => {
         Error && console.log(Error)
     })
 })
+
+
+// 暴露出路由
+module.exports = router

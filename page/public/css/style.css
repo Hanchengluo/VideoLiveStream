@@ -1,438 +1,105 @@
-/* 所有设备通用 */
-@media all {
-    * {
-        margin:0;
-        font-family:微软雅黑;
-        font-size:13px;
-        transition:0.5s;
-    }
-    
-    input,button,select,textarea {
-        outline:none;
-    }
-    
-    a {
-        text-decoration:none;
-    }
-    
-    a:hover {
-        text-decoration:none;
-    }
-    
-    .click-on,button:hover {
-        cursor:pointer;
-    }
-    
-    .Head {
-        position: relative;
-        width: 100%;
-        height: 50px;
-        z-index: 100;
-        perspective:1000;
-        -webkit-perspective:1000;
-    }
-
-    #live-stream {
-        margin: 0 auto;
-    }
-
-    .live-play {
-        position: absolute;
-        height: 100%;
-        opacity: 0;
-    }
-
-    .live-stream-controls {
-        position: absolute;
-        width: 100%;
-        height: 40px;
-        bottom: 0;
-        background-color: rgba(0,0,0,0.5);
-        left: 0;
-        padding-left: 2px;
-        opacity: 0;
-        opacity: 0.8s;
-        z-index: 2;
-    }
-
-    .live-stream-controls:hover {
-        opacity: 1;
-    }
-
-    .control-button {
-        position: absolute;
-        height: 15px;
-        top:12.5px;
-        color: #ddd;
-    }
-
-    .control-button i {
-        font-size: 13px;
-    }
-
-    .control-button i:hover {
-        color: #fff;
-    }
-
-    .play-pause {
-        left: 12.5px;
-    }
-
-    .live-stream-plan {
-        position: absolute;
-        height: 2px;
-        left: 0;
-        top:-1px;
-        width: 100%;
-    }
-
-    .LiveStreamLoadAnimation-on {
-        opacity: 0;
-        z-index: -100;
-    }
-
-    .volume {
-        left: 0;
-        top: 11px;
-    }
-
-    .volume i {
-        font-size: 15px;
-    }
-
-    .volume-resize {
-        left: 20px;
-        width: 100px;
-        height: 2px;
-        background-color: #999;
-        margin-top: 5px;
-    }
-
-    .volume-resize-body {
-        height: 2px;
-        background-color: #f00222;
-        width: 0;
-        line-height: 2px;
-        color: #f00222;
-        text-align: right;
-        margin-left: -1px;
-        font-size: 3px;
-        position: relative;
-    }
-
-    .volume-resize-body span {
-        position: absolute;
-        right: -2px;
-    }
-
-    #VideoVolumeControl {
-        position: absolute;
-        width: 150px;
-        left: 50px;
-        bottom: 2px;
-        top: 2px;
-    }
-
-    .VideoFullScreen {
-        right: 5px;
-        height: 30px;
-        top: 5px;
-        width: 30px;
-    }
-
-    .ytp-svg-fill {
-        fill: #fff
-    }
-
-    .live-stream-plan-resize {
-        width: 0;
-        background-color: #f00222;
-        height: 100%;
-    }
-
-    .live-stream-controls-resize {
-        position: absolute;
-        width: 100%;
-        height: 10px;
-        top:-10px;
-        left: 0;
-    }
-
-    .LiveStreamLoadAnimation {
-        position: absolute;
-        z-index: 1;
-        text-align: center;
-    }
-
-    .LiveStreamLoadAnimation i {
-        color: #fff;
-        font-size: 50px;
-        line-height: 50vh;
-    }
-
-    #LiveStream {
-        z-index: 0;
-        background-color: #000;
-    }
-
-}
-
 /* 屏幕小于1000px */
-@media screen and (max-width: 1000px) {
-    .live {
-        position: relative;
-        width: 100%;
-        height: 50vh;
-        background-color: #000;
-        text-align: center;
-    }
+@media screen and (max-width:1000px) {
+    .live {position:relative;width:100%;height:50vh;background-color:#000;text-align:center;}
 }
-
 /* 屏幕大于1000px */
-@media screen and (min-width: 1000px) {
-    .live {
-        position: relative;
-        width: 100%;
-        height: 70vh;
-        background-color: #000;
-        text-align: center;
-    }
+@media screen and (min-width:1000px) {
+    .live {position:relative;width:100%;height:70vh;background-color:#000;text-align:center;}
 }
-.head-menu {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 15px;
-    color: #999;
+/* 动画 */
+@keyframes subtitles{from {left: 110%;}to {left: -10%;}}
+/* 所有设备通用 */
+* {margin:0;font-family:微软雅黑;font-size:13px;transition:0.5s;}
+input,button,select,textarea {outline:none;}
+body {overflow-x: hidden;}
+a {text-decoration:none;}
+a:hover {text-decoration:none;}
+.click-on,button:hover {cursor:pointer;}
+.Head {position:relative;width:100%;height:50px;z-index:100;perspective:1000;-webkit-perspective:1000;}
+#live-stream {margin:0 auto;}
+.live-play {position:absolute;height:100%;opacity:0;}
+.live-stream-controls {position:absolute;width:100%;height:40px;bottom:0;background-color:rgba(0,0,0,0.5);left:0;opacity:0;opacity:0.8s;z-index:2;transition:1s;}
+.live-stream-controls:hover {opacity:1;}
+.control-button {position:absolute;height:15px;top:12.5px;color:#ddd;}
+.control-button i {font-size:13px;}
+.control-button i:hover {color:#fff;}
+.play-pause {left:12.5px;}
+.live-stream-plan {position:absolute;height:2px;left:0;top:-1px;width:100%;}
+.LiveStreamLoadAnimation-on {opacity:0;z-index:-100;}
+.volume {left:0;top:11px;}
+.volume i {font-size:15px;}
+.volume-resize {left:20px;width:100px;height:2px;background-color:#999;margin-top:5px;}
+.volume-resize-body {height:2px;background-color:#f00222;width:0;line-height:2px;color:#f00222;text-align:right;margin-left:-1px;font-size:3px;position:relative;}
+.volume-resize-body span {position:absolute;right:-2px;}
+#VideoVolumeControl {position:absolute;width:150px;left:50px;bottom:2px;top:2px;}
+.VideoFullScreen {right:5px;height:30px;top:5px;width:30px;}
+.ytp-svg-fill {fill:#fff}
+.live-stream-plan-resize {width:0;background-color:#f00222;height:100%;}
+.live-stream-controls-resize {position:absolute;width:100%;height:10px;top:-10px;left:0;}
+.LiveStreamLoadAnimation {position:absolute;z-index:1;text-align:center;opacity:0;}
+.LiveStreamLoadAnimation i {color:#fff;font-size:50px;line-height:50vh;}
+#LiveStream {z-index:0;background-color:#000;}
+.head-menu {width:50px;height:50px;text-align:center;line-height:50px;font-size:15px;color:#999;position:absolute;left:50px;}
+.head-menu i:hover {color:#000;}
+.head-userlogo {position:absolute;width:30px;height:30px;right:50px;background-color:#000;border-radius:50%;top:10px;}
+.head-bell {position:absolute;width:50px;height:50px;text-align:center;line-height:50px;right:100px;font-size:20px;}
+.sercha {position:absolute;width:300px;height:30px;border:1px solid #ccc;border-radius:3px;top:10px;right:180px;}
+.sercha button {border:0;width:50px;position:absolute;right:0;height:99%;background-color:#eee;border-left:1px solid #ccc;color:#999;}
+.sercha button:hover {background-color:#ddd;color:#000;}
+.sercha input {border:0;height:90%;background-color:rgba(0,0,0,0);text-indent:1em;width:250px;}
+.Head-logo {position:absolute;width:100px;height:32px;top:9px;left:110px;background:url(../media/image/youtube.webp) -178px -227px;}
+.menu-tips {position:absolute;width:100%;height:40px;top:50px;left:0;background-color:#fff;border-top:1px solid #ccc;transform-origin:top;transform:rotateX(-90deg);opacity:0;}
+.menu-tips-on {transform:rotateX(0deg);opacity:1;}
+.menu-tips-ul {position:absolute;left:100px;right:100px;bottom:0;}
+.menu-tips-ul div {line-height:35px;height:35px;padding:0 15px;float:left;border-bottom:2px solid rgba(0,0,0,0);}
+.menu-tips-ul div:hover {border-bottom:2px solid #f00222;color:#f00222;}
+.menu-user {position:absolute;width:250px;height:auto;background-color:#fff;border:1px solid #ccc;top:50px;right:48px;transform-origin:top;transform:rotateX(-90deg);opacity:0;}
+.menu-user-on {transform:rotateX(0deg);opacity:1;}
+.menu-border-arrow {z-index:1;width:10px;height:10px;transform:rotate(-45deg);background-color:#fff;border-top:1px solid #ccc;border-right:1px solid #ccc;top:-6px;right:10px;position:absolute;}
+.menu-user-data {margin:10px;}
+.menu-user-name a {color:#000;}
+.menu-user-name a:hover {text-decoration:underline;}
+.menu-user-name {margin-bottom:10px;}
+.menu-user-info-logo-img {width:70px;height:70px;background-color:#000;}
+.menu-user-info-logo {float:left;width:50%;height:80px;}
+.menu-user-info-msg {float:right;text-align:right;}
+.menu-user-info-msg p {font-size:0.9em;}
+.menu-user-info-msg a {margin-right:1em;color:#f00222;font-size:0.9em;}
+.menu-user-info {display:table;width:100%;border-top:1px solid #ddd;padding-top:10px;}
+.menu-user-controls {width:100%;height:40px;background-color:#ddd;border-top:1px solid #999;position:relative;}
+.menu-user-controls-cog {box-shadow:0 1px 0 rgba(0,0,0,0.05);width:40px;height:25px;background-color:#eee;border:1px solid #ccc;text-align:center;line-height:23px;font-size:15px;margin-top:8px;margin-left:10px;color:#999;}
+.menu-user-controls-cog:hover {background-color:#fff;color:#000;}
+.menu-user-controls-exit {position:absolute;box-shadow:0 1px 0 rgba(0,0,0,0.05);width:100px;height:25px;background-color:#eee;border:1px solid #ccc;text-align:center;line-height:23px;font-size:12px;top:8px;right:10px;color:#000;}
+.Notification {position:absolute;width:350px;height:auto;background-color:#fff;border:1px solid #ccc;top:50px;right:109px;transform-origin:top;transform:rotateX(-90deg);opacity:0;}
+.Notification-on {transform:rotateX(0deg);opacity:1;}
+.Notification-title {position:relative;padding:10px;line-height:15px;}
+.Notification-title .cog {position:absolute;right:10px;}
+.Notification-title .eraser {position:absolute;right:50px;}
+.Notification-list {border-top:1px solid #ccc;background-color:#eee;}
+.Notification-date {padding:10px;border-bottom:1px solid #ccc;}
+.Notification-date:hover {background-color:#ddd;}
+.Notification-date span {margin-left:5px;font-size:10px;}
+.Notification-date a {margin-left:5px;margin-right:5px;font-size:10px;color:#f00222;}
+.VideoRecommend {position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,0.5);opacity:0;z-index:-100;}
+.VideoRecommend-on {z-index:100;opacity:1;}
+.VideoRecommend-box {float:left;width:25%;height:33.33%;background-color:#000;}
+.subtitles {
     position: absolute;
-    left: 50px;
-}
-
-.head-menu i:hover {
-    color: #000;
-}
-
-.head-userlogo {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    right: 50px;
-    background-color: #000;
-    border-radius: 50%;
-    top:10px;
-}
-
-.head-bell {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    right: 100px;
+    color: #fff;
+    animation: subtitles 30s;
+    z-index: 1000;
+    left: -10%;
     font-size: 20px;
+    text-shadow: 0px 1px 1px #000;
+    width: auto;
+    text-overflow:clip;
+    height: 20px;
 }
 
-.sercha {
+.subtitles-box {
     position: absolute;
-    width: 300px;
-    height: 30px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    width: 100%;
     top:10px;
-    right: 180px;
-}
-
-.sercha button {
-    border: 0;
-    width: 50px;
-    position: absolute;
-    right: 0;
-    height: 99%;
-    background-color: #eee;
-    border-left: 1px solid #ccc;
-    color: #999;
-}
-
-.sercha button:hover {
-    background-color: #ddd;
-    color: #000;
-}
-
-.sercha input {
-    border: 0;
-    height: 90%;
-    background-color: rgba(0,0,0,0);
-    text-indent: 1em;
-    width: 250px;
-}
-
-.Head-logo {
-    position: absolute;
-    width: 100px;
-    height: 32px;
-    top:9px;
-    left: 110px;
-    background: url(../media/image/youtube.webp) -178px -227px;
-}
-
-.menu-tips {
-    position: absolute;
-    width: 100%;
-    height: 40px;
-    top:50px;
+    bottom: 150px;
     left: 0;
-    background-color: #fff;
-    border-top:1px solid #ccc;
-    transform-origin:top;
-    transform: rotateX(-90deg);
-    opacity: 0;
-}
-
-.menu-tips-on {
-    transform: rotateX(0deg);
-    opacity: 1;
-}
-
-.menu-tips-ul {
-    position: absolute;
-    left: 100px;
-    right: 100px;
-    bottom: 0;
-}
-
-.menu-tips-ul div {
-    line-height: 35px;
-    height: 35px;
-    padding: 0 15px;
-    float: left;
-    border-bottom: 2px solid rgba(0,0,0,0);
-}
-
-.menu-tips-ul div:hover {
-    border-bottom: 2px solid #f00222;
-    color: #f00222;
-}
-
-.menu-user {
-    position: absolute;
-    width: 250px;
-    height: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    top:50px;
-    right: 48px;
-    transform-origin:top;
-    transform: rotateX(-90deg);
-    opacity: 0;
-}
-
-.menu-user-on {
-    transform: rotateX(0deg);
-    opacity: 1;
-}
-
-.menu-border-arrow {
-    z-index: 1;
-    width: 10px;
-    height: 10px;
-    transform: rotate(-45deg);
-    background-color: #fff;
-    border-top:1px solid #ccc;
-    border-right: 1px solid #ccc;
-    top:-6px;
-    right: 10px;
-    position: absolute;
-}
-
-.menu-user-data {
-    margin: 10px;
-}
-
-.menu-user-name a{
-    color: #000;
-}
-
-.menu-user-name a:hover {
-    text-decoration:underline;
-}
-
-.menu-user-name {
-    margin-bottom: 10px;
-}
-
-.menu-user-info-logo-img {
-    width: 70px;
-    height: 70px;
-    background-color: #000;
-}
-
-.menu-user-info-logo {
-    float: left;
-    width: 50%;
-    height: 80px;
-}
-
-.menu-user-info-msg {
-    float: right;
-    text-align: right;
-}
-
-.menu-user-info-msg p {
-    font-size: 0.9em;
-}
-
-.menu-user-info-msg a {
-    margin-right: 1em;
-    color: #f00222;
-    font-size: 0.9em;
-}
-
-.menu-user-info {
-    display: table;
-    width: 100%;
-    border-top:1px solid #ddd; 
-    padding-top: 10px;
-}
-
-.menu-user-controls {
-    width: 100%;
-    height: 40px;
-    background-color: #ddd;
-    border-top:1px solid #999; 
-    position: relative;
-}
-
-.menu-user-controls-cog {
-    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
-    width: 40px;
-    height: 25px;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    text-align: center;
-    line-height: 23px;
-    font-size: 15px;
-    margin-top: 8px;
-    margin-left: 10px;
-    color: #999;
-}
-
-.menu-user-controls-cog:hover {
-    background-color: #fff;
-    color: #000;
-}
-
-.menu-user-controls-exit {
-    position: absolute;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
-    width: 100px;
-    height: 25px;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    text-align: center;
-    line-height: 23px;
-    font-size: 12px;
-    top: 8px;
-    right: 10px;
-    color: #000;
 }

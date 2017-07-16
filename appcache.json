@@ -1,21 +1,18 @@
 {
     "CACHEMANIFEST":[
-        "/public/css/awesome/css/font-awesome.min.css",
-        "/public/css/awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
-        "/public/css/animate.css",
-        "/public/css/loaders.css",
-        "/public/css/style.css",
-        "/public/javascript/exports/socket.io.js",
-        "/public/javascript/exports/vue.js",
-        "/public/javascript/main.js"
+        "/LiveStream/public/css/awesome/css/font-awesome.min.css",
+        "/LiveStream/public/css/awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
+        "/LiveStream/public/css/animate.css",
+        "/LiveStream/public/css/loaders.css",
+        "/LiveStream/public/css/style.css",
+        "/LiveStream/public/js/exports/socket.io.js",
+        "/LiveStream/public/js/exports/vue.js",
+        "/LiveStream/public/js/main.js",
+        "/LiveStream/public/media/image/youtube.webp"
     ],
-    "NETWORK":[
-        "/LiveStreamPath",
-        "/LiveStream",
-        "*"
-    ],
+    "NETWORK":[],
     "FALLBACK":{
     },
-    "TIME":"2017-7-13 9:40",
-    "AUTHO":"Panda"
+    "TIME":"2017-7-16 0:30",
+    "AUTHO":"Mr.Panda"
 }
