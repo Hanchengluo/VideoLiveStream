@@ -17,11 +17,11 @@ window.onload = () => {
     let Module = new Object() // vue组件
     // 弹幕管道
     // 弹幕使用管道填充模式
-    // play 保存播放时间
-    // data 保存弹幕对象
-    // stream 保存管道信息
-    // StreamTime 用于变更管道可写状态
     let StreamSubtitles = new function(){
+        // play 保存播放时间
+        // data 保存弹幕对象
+        // stream 保存管道信息
+        // StreamTime 用于变更管道可写状态
         this.play = 0
         this.data = new Object()
         this.length = Math.ceil((document.documentElement.clientHeight * AspectRatio - 150) / 20)
