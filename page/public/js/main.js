@@ -34,6 +34,16 @@ window.onload = () => {
             // 回收待测试
         }
     }
+    // 计算样式
+    function MathStyle(){
+        AspectRatio = (document.documentElement.clientWidth > 1000) ? 0.7 : 0.5
+        let videoWidth = (document.getElementById('LiveStream').videoWidth / document.getElementById('LiveStream').videoHeight) * (document.documentElement.clientHeight * AspectRatio)
+        this.width = videoWidth
+        this.left = (document.documentElement.clientWidth / 2) - (videoWidth / 2)
+        this.contentStyleWidth = document.documentElement.clientWidth * 0.9
+        this.videoAutoStyleWidth = document.documentElement.clientWidth * 0.9 * 0.6
+        this.chatStyleWidth = document.documentElement.clientWidth * 0.9 * 0.4 - 10
+    }
     
     
     // xhr方法
@@ -174,6 +184,16 @@ window.onload = () => {
             FullScreenType:false,
             // 视频推荐
             VideoRecommend: false,
+            // 内容区
+            contentStyle:{
+                'width': document.documentElement.clientWidth * 0.9 + 'px'
+            },
+            videoAutoStyle:{
+                'width': document.documentElement.clientWidth * 0.9 * 0.6 + 'px'
+            },
+            chatStyle:{
+                'width': document.documentElement.clientWidth * 0.9 * 0.4 - 10 + 'px'
+            }
         }
         // 绑定事件
         this.methods = {
@@ -257,13 +277,6 @@ window.onload = () => {
             },
             // 视频可以在不中断的情况下触发
             canplaythrough: () => {
-                // 计算样式
-                function MathStyle(){
-                    AspectRatio = (document.documentElement.clientWidth > 1000) ? 0.7 : 0.5
-                    let videoWidth = (document.getElementById('LiveStream').videoWidth / document.getElementById('LiveStream').videoHeight) * (document.documentElement.clientHeight * AspectRatio)
-                    this.width = videoWidth
-                    this.left = (document.documentElement.clientWidth / 2) - (videoWidth / 2)
-                }
                 // 判断是否已经加载
                 if(VideoLoad == false){
                     VideoLoad = true
@@ -287,6 +300,9 @@ window.onload = () => {
                             Module.LivePlayStyle.left =  Style.left + 'px'
                             sessionStorage.LivePlayStyleWidth = Style.width - 2
                             sessionStorage.LivePlayStyleLeft = Style.left
+                            Module.contentStyle.width = Style.contentStyleWidth + 'px'
+                            Module.videoAutoStyle.width = Style.videoAutoStyleWidth + 'px'
+                            Module.chatStyle.width = Style.chatStyleWidth + 'px'
                         }
                         // 重新计算加载动画位置
                         Module.LiveStreamLoadAnimationStyle.left = (document.documentElement.clientWidth / 2) - 25 + 'px'
