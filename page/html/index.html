@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" manifest="./appcache/package.appcache">
+<html lang="zh">
     <head>
-        <title>视频直播推流系统</title>
+        <title>西魏网页设计工作室</title>
 	    <meta charset="UTF-8"/>
         <meta name="renderer" content="webkit"/>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -11,28 +11,47 @@
         <link rel="stylesheet" href="./public/css/awesome/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="./public/css/animate.css"/>
         <link rel="stylesheet" href="./public/css/loaders.css"/>
-        <link rel="stylesheet" href="./public/css/style.css"/>
+        <!-- Media query css -->
+        <link rel="stylesheet" media="(min-width:1000px)" href="./public/css/pc-style.css" />
+        <link rel="stylesheet" media="(max-width:1000px)" href="./public/css/mobile-style.css" />
         <!-- js -->
-        <script src="./public/js/exports/socket.io.js"></script>
         <script src="./public/js/exports/vue.js"></script>
-        <script src="./public/js/main.js"></script>
+        <script src="./public/js/index.js"></script>
     </head>
     <body>
-        <div id="Vue">
+        <div id="docker">
             <!-- 头部 -->
-            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}" v-bind:style="HeadStyle">
+            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}">
                 <!-- 头部控制 -->
-                <div class="head-userlogo click-on" title="用户" v-on:click="HeadUserTab"></div>
-                <div class="head-bell" title="通知" v-on:click="NotificationTab"><i class="fa fa-bell-o click-on"></i></div>
-                <div class="Head-logo" title="视频和直播"></div>
-                <div class="head-menu" title="菜单" v-on:click="HeadMenu"><i class="fa fa-bars click-on"></i></div>
-                <div class="sercha click-on">
+                <div class="head-userlogo click-on" title="用户" v-bind:style="User"></div>
+                <div class="head-userlogin click-on" title="登录" v-bind:style="Login">登录</div>
+                <div class="head-bell" title="通知" v-on:click="NotificationTab" v-bind:style="NotificationTab"><i class="fa fa-bell-o click-on"></i></div>
+                <div class="index-Head-logo" title="视频和直播">
+                    <svg width="120px" height="18px" viewBox="0 0 120 18" stroke="none" stroke-width="1" fill="none">
+                        <g fill="#000000">
+                            <polygon points="0 16.9425771 1.787 16.9425771 1.787 0.652062857 0 0.652062857"></polygon>
+                            <polygon points="5.1124 0.651548571 6.7859 0.651548571 16.7644 13.7066914 16.7644 0.651548571 18.5069 0.651548571 18.5069 16.9425771 17.0814 16.9425771 6.8549 3.58297714 6.8549 16.9425771 5.1124 16.9425771"></polygon>
+                            <polygon points="27.1495 2.35059429 21.832 2.35059429 21.832 0.651394286 34.2765 0.651394286 34.2765 2.35059429 28.9595 2.35059429 28.9595 16.9424229 27.1495 16.9424229"></polygon>
+                            <polygon points="37.60215 0.651548571 49.05065 0.651548571 49.05065 2.32709143 39.38915 2.32709143 39.38915 7.88909143 48.03315 7.88909143 48.03315 9.56463429 39.38915 9.56463429 39.38915 15.2670343 49.16365 15.2670343 49.16365 16.9425771 37.60215 16.9425771"></polygon>
+                            <polygon points="52.48935 0.651548571 54.27735 0.651548571 54.27735 15.2433771 63.19185 15.2433771 63.19185 16.9425771 52.48935 16.9425771"></polygon>
+                            <polygon points="66.51745 0.651548571 68.30345 0.651548571 68.30345 15.2433771 77.21895 15.2433771 77.21895 16.9425771 66.51745 16.9425771"></polygon>
+                            <polygon points="80.544 16.9425771 82.33 16.9425771 82.33 0.651548571 80.544 0.651548571"></polygon>
+                            <path d="M85.6556,8.84293714 L85.6556,8.79716571 C85.6556,4.32905143 88.8461,0.372651429 93.5976,0.372651429 C96.2671,0.372651429 97.9196,1.16413714 99.5036,2.53676571 L98.3496,3.93305143 C97.1276,2.83916571 95.7716,2.07185143 93.5301,2.07185143 C90.0236,2.07185143 87.5111,5.12002286 87.5111,8.74985143 L87.5111,8.79716571 C87.5111,12.6841371 89.9331,15.5697943 93.7786,15.5697943 C95.5881,15.5697943 97.2631,14.8482514 98.3496,13.9400229 L98.3496,9.89105143 L93.5301,9.89105143 L93.5301,8.23762286 L100.0696,8.23762286 L100.0696,14.7315086 C98.5981,16.08048 96.3806,17.22168 93.7111,17.22168 C88.7326,17.22168 85.6556,13.4972229 85.6556,8.84293714">
+                            </path>
+                        </g>
+                        <g stroke="#F00222" stroke-width="0.4" fill="#F00222">
+                            <path d="M110.58065,15.4488343 C107.44465,14.9854629 105.25115,12.17592 105.25115,8.79706286 L105.25115,8.74974857 C105.25115,5.35597714 107.42515,2.57523429 110.58065,2.13809143 L110.58065,0.422948571 C106.26665,0.884777143 103.39565,4.59586286 103.39565,8.79706286 L103.39565,8.84283429 C103.39565,13.0589486 106.24565,16.7402057 110.58065,17.1773486 L110.58065,15.4488343 Z" stroke="#F00222" stroke-width="0.4" fill="#F00222"></path>
+                            <path d="M112.36655,0.416777143 L112.36655,2.14529143 C115.50405,2.60866286 117.69605,5.41820571 117.69605,8.79706286 L117.69605,8.84283429 C117.69605,12.2381486 115.52155,15.0188914 112.36655,15.4560343 L112.36655,17.1711771 C116.68055,16.7078057 119.55155,12.9982629 119.55155,8.79706286 L119.55155,8.74974857 C119.55155,4.53517714 116.70105,0.85392 112.36655,0.416777143 Z" stroke="#F00222" stroke-width="0.4" fill="#F00222"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="sercha click-on" v-bind:style="search">
                     <input type="text" title="请输入关键字搜索" placeholder="搜索">
                     <button><i class="fa fa-search"></i></button>
                 </div>
                 <!-- 头部控制 end-->
                 <!-- 模块列表-->
-                <div class="menu-tips" v-bind:class="{'menu-tips-on':MenuTips}">
+                <div class="menu-tips menu-tips-on">
                     <div class="menu-tips-ul">
                         <div class="click-on">首页</div>
                         <div class="click-on">电影</div>
@@ -50,29 +69,6 @@
                     </div>
                 </div>
                 <!-- 模块列表 end-->
-                <!-- 用户信息 -->
-                <div class="menu-user" v-bind:class="{'menu-user-on':MenuUser}">
-                    <div class="menu-border-arrow"></div>
-                    <div class="menu-user-data">
-                        <div class="menu-user-name"><a href="#">xivistudios@gmail.com</a></div>
-                        <div class="menu-user-info">
-                            <div class="menu-user-info-logo">
-                                <div class="menu-user-info-logo-img"></div>
-                            </div>
-                            <div class="menu-user-info-msg">
-                                <p><a href="#">20</a>订阅</p>
-                                <p><a href="#">35</a>粉丝</p>
-                                <p><a href="#">9</a>视频</p>
-                                <p><a href="#">108</a>留言</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-user-controls">
-                        <div class="menu-user-controls-cog click-on" title="设置"><i class="fa fa-cog"></i></div>
-                        <div class="menu-user-controls-exit click-on" title="退出登录">退出帐号</div>
-                    </div>
-                </div>
-                <!-- 用户信息 end-->
                 <!-- 通知 -->
                 <div class="Notification" v-bind:class="{'Notification-on':Notification}">
                     <div class="menu-border-arrow"></div>
@@ -99,73 +95,10 @@
                 <!-- 通知 end-->
             </div>
             <!-- 头部 end-->
-            <!-- 播放器区域 -->
-            <div class="live" v-bind:class="{'animated': Animated, 'fadeInUp':fadeInUp}">
-                <div class="subtitles-box"></div>
-                <!-- 加载动画 -->
-                <div class="LiveStreamLoadAnimation pacman" v-bind:class="{ 'LiveStreamLoadAnimation-on' : LiveStreamLoadAnimation }" v-bind:style="LiveStreamLoadAnimationStyle">
-                    <div></div><div></div><div></div><div></div><div></div>
-                </div>
-                <!-- 加载动画 end-->
-                <!-- 播放器 -->
-                <div class="live-play" v-bind:style="LivePlayStyle">
-                    <!-- 视频推荐层 -->
-                    <div class="VideoRecommend" v-bind:class="{'VideoRecommend-on': VideoRecommend}">
-                        <div class="VideoRecommend-box"></div>
-                    </div>
-                    <!-- 视频推荐层 end-->
-                    <!-- 视频 -->
-                    <video preload v-bind:src="LiveStreamSrc" id="LiveStream" height="100%" width="100%" v-on:canplaythrough="canplaythrough" v-on:timeupdate="timeupdate" v-on:ended="ended" v-on:waiting="waiting"  v-on:playing="playing" v-bind:style="VideoStyle"></video>
-                    <!-- 视频 end-->
-                    <!-- 控制条 -->
-                    <div class="live-stream-controls" v-bind:style="LiveStreamControls">                   
-                        <!-- 进度条hover监听区 -->
-                        <div class="live-stream-controls-resize" v-on:mouseenter="controlsResizeMouseenter"></div>
-                        <!-- 进度条hover监听区 end-->
-                        <!-- 进度条 -->
-                        <div class="live-stream-plan click-on" v-bind:style="LiveStreamPlan" v-on:click="LiveStreamPlanResize">
-                            <div class="live-stream-plan-resize" v-bind:style="LiveStreamPlanStyle"></div>
-                        </div>
-                        <!-- 进度条 end-->
-                        <!-- 暂停播放 -->
-                        <div class="control-button click-on play-pause" v-on:click="playPause" v-bind:data-play="playPauseType" title="暂停/播放">
-                            <i class="fa" v-bind:class="{'fa-pause':VideoPause, 'fa-play':VideoPlay}"></i>
-                        </div>
-                        <!-- 暂停播放 end-->
-                        <!-- 音量控制 -->
-                        <div id="VideoVolumeControl" v-on:mouseenter="VolumeControlMouseenter" v-on:mouseleave="VolumeControlMouseleave">
-                            <div class="control-button click-on volume" v-on:click="Volume" v-bind:data-volume="volumeType" id="VideoVolume" title="静音">
-                                <i class="fa" v-bind:class="{'fa-volume-down':volumedown, 'fa-volume-off':volumeoff}"></i>
-                            </div>
-                            <div class="control-button click-on volume-resize" v-bind:style="VideoVolumeStyle" v-on:click="VideoVolumeResize">
-                                <div class="volume-resize-body" v-bind:style="VideoVolumeResizeStyle" id="volume-resize"><span>&#9679;</span></div>
-                            </div>
-                        </div>
-                        <!-- 音量控制 end-->
-                        <!-- 全屏控制 -->
-                        <div class="control-button click-on VideoFullScreen" v-on:click="VideoFullScreen" v-bind:data-screen="FullScreenType" title="全屏">
-                            <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%">
-                                <path class="ytp-svg-fill" d="m 10,16 2,0 0,-4 4,0 0,-2 L 10,10 l 0,6 0,0 z" id="ytp-id-23"></path>
-                                <path class="ytp-svg-fill" d="m 20,10 0,2 4,0 0,4 2,0 L 26,10 l -6,0 0,0 z" id="ytp-id-24"></path>
-                                <path class="ytp-svg-fill" d="m 24,24 -4,0 0,2 L 26,26 l 0,-6 -2,0 0,4 0,0 z" id="ytp-id-25"></path>
-                                <path class="ytp-svg-fill" d="M 12,20 10,20 10,26 l 6,0 0,-2 -4,0 0,-4 0,0 z" id="ytp-id-26"></path>
-                            </svg>
-                        </div>
-                        <!-- 全屏控制 end-->
-                    </div>
-                    <!-- 控制条 end-->
-                </div>
-                <!-- 播放器 end-->
+            <!-- 中心区 -->
+            <div class="index" v-bind:style="index">
             </div>
-            <!-- 播放器区域 end-->
-            <!-- 视频内容区域 -->
-            <div class="content" v-bind:style="contentStyle">
-                <div class="video-auto box-bor" v-bind:style="videoAutoStyle">
-                </div>
-                <div class="chat box-bor" v-bind:style="chatStyle">
-                </div>
-            </div>
-            <!-- 视频内容区域 end-->
+            <!-- 中心区 end-->
         </div>
     </body>
 </html>

@@ -17,7 +17,7 @@ global.CONFIGURATION = configuration
 // 初始化appcache
 // 连接数据库
 Module.appcache()
-// Module.mongodb()
+Module.mongodb()
 
 
 // 解析中间件绑定

@@ -16,33 +16,30 @@ window.onload = () => {
     let FullScreenType = false // 是否全屏
     let Module = new Object() // vue组件
     // 弹幕管道
-    // 弹幕使用管道填充模式
     let StreamSubtitles = new function(){
-        // play 保存播放时间
-        // data 保存弹幕对象
-        // stream 保存管道信息
-        // StreamTime 用于变更管道可写状态
-        this.play = 0
-        this.data = new Object()
+        // 弹幕使用管道填充模式
+        this.play = 0 // 保存播放时间
+        this.data = new Object() // 保存弹幕对象
         this.length = Math.ceil((document.documentElement.clientHeight * AspectRatio - 150) / 20)
+        // 保存管道信息
         this.stream = []
         for(let i = 0; i < this.length; i ++){
             this.stream.push({type:true, top: i * 20 + 20})
         }
+        // 用于变更管道可写状态
         this.StreamTime = (i) => setTimeout(() => (StreamSubtitles.stream[i].type = true), 3000)
         this.GC = () => {
             // 回收待测试
         }
     }
     // 计算样式
-    function MathStyle(){
+    let MathStyle = function(){
         AspectRatio = (document.documentElement.clientWidth > 1000) ? 0.7 : 0.5
         let videoWidth = (document.getElementById('LiveStream').videoWidth / document.getElementById('LiveStream').videoHeight) * (document.documentElement.clientHeight * AspectRatio)
-        this.width = videoWidth
-        this.left = (document.documentElement.clientWidth / 2) - (videoWidth / 2)
-        this.contentStyleWidth = document.documentElement.clientWidth * 0.9
-        this.videoAutoStyleWidth = document.documentElement.clientWidth * 0.9 * 0.6
-        this.chatStyleWidth = document.documentElement.clientWidth * 0.9 * 0.4 - 10
+        return {
+            width: videoWidth,
+            left: (document.documentElement.clientWidth / 2) - (videoWidth / 2)
+        }
     }
     
     
@@ -114,12 +111,10 @@ window.onload = () => {
     
     // 初始化弹幕
     XHR('GET', `./Subtitles${location.search}`, (magess) => (StreamSubtitles.data = JSON.parse(magess)))
-    
-    
     // 初始化Vue
     Module = new Vue(new function(){
         // 组件节点
-        this.el = '#Vue'
+        this.el = '#docker'
         // 组件参数
         this.data = {
             // 头部控制样式
@@ -130,8 +125,18 @@ window.onload = () => {
             Animated: true,
             fadeInDown: true,
             fadeInUp: true,
+            PostSubtitles:false,
             // 菜单控制
             MenuTips:false,
+            // 用户
+            User:{
+                'opacity':0,
+                'z-index': -100
+            },
+            // 登录
+            Login:{
+                'opacity':1
+            },
             // 用户信息
             MenuUser:false,
             // 加载动画
@@ -144,7 +149,9 @@ window.onload = () => {
             // 通知
             Notification:false,
             // 推流地址
-            LiveStreamSrc:'./public/media/stream/VideoTest.mp4',
+            LiveStreamSrc: `./VideoFile${location.search}`,
+            // 字幕
+            VideoTrack:`./Track${location.search}`,
             // 控制条显示隐藏
             LiveStreamControls:{
                 'opacity':'1'
@@ -183,17 +190,7 @@ window.onload = () => {
             // 全屏
             FullScreenType:false,
             // 视频推荐
-            VideoRecommend: false,
-            // 内容区
-            contentStyle:{
-                'width': document.documentElement.clientWidth * 0.9 + 'px'
-            },
-            videoAutoStyle:{
-                'width': document.documentElement.clientWidth * 0.9 * 0.6 + 'px'
-            },
-            chatStyle:{
-                'width': document.documentElement.clientWidth * 0.9 * 0.4 - 10 + 'px'
-            }
+            VideoRecommend: false
         }
         // 绑定事件
         this.methods = {
@@ -280,12 +277,14 @@ window.onload = () => {
                 // 判断是否已经加载
                 if(VideoLoad == false){
                     VideoLoad = true
-                    let Style = new MathStyle()
+                    let Style = MathStyle()
                     Module.LivePlayStyle.width = Style.width + 'px'
                     Module.LivePlayStyle.left =  Style.left + 'px'
+                    Module.VideoStyle.width = Style.width - 1 + 'px'
                     Module.LiveStreamLoadAnimation = true
                     Module.LiveStreamLoadAnimationStyle.opacity = 0
                     Module.LivePlayStyle.opacity = 1
+                    Module.PostSubtitles = true
                     document.getElementById('LiveStream').volume = localStorage.VideoVolume == undefined ? 1 : Number(localStorage.VideoVolume) // 检查音量设置
                     document.getElementById('LiveStream').currentTime = (localStorage.VideoPlayCurrentTime == undefined || Number(localStorage.VideoPlayCurrentTime) >= document.getElementById('LiveStream').duration) ? 0 : Number(localStorage.VideoPlayCurrentTime) // 检查上次播放进度
                     document.getElementById('LiveStream').play()
@@ -295,14 +294,11 @@ window.onload = () => {
                     window.onresize = () => {
                         // 是否是全屏触发
                         if(FullScreenType == false){
-                            let Style = new MathStyle()
+                            let Style = MathStyle()
                             Module.LivePlayStyle.width = Style.width + 'px'
                             Module.LivePlayStyle.left =  Style.left + 'px'
                             sessionStorage.LivePlayStyleWidth = Style.width - 2
                             sessionStorage.LivePlayStyleLeft = Style.left
-                            Module.contentStyle.width = Style.contentStyleWidth + 'px'
-                            Module.videoAutoStyle.width = Style.videoAutoStyleWidth + 'px'
-                            Module.chatStyle.width = Style.chatStyleWidth + 'px'
                         }
                         // 重新计算加载动画位置
                         Module.LiveStreamLoadAnimationStyle.left = (document.documentElement.clientWidth / 2) - 25 + 'px'
@@ -425,7 +421,7 @@ window.onload = () => {
     }
     
     document.getElementById('LiveStream').onprogress = function(Event){
-        // console.log(new MediaProject(document.getElementById('LiveStream')))
+        // console.log('视频测试对象 ==>>', new MediaProject(document.getElementById('LiveStream')))
     }
     
  

@@ -19,8 +19,12 @@ router.use(function(req, res, next){
 
 // 定义网站主页的路由
 router.get('/', (req, res) => {
-    res.cookie('UserTokin', Module.string12bit(), {path: '/'})
     res.sendFile(`${INDEXPATH}/page/html/index.html`)
+})
+
+// 定义网站主页的路由
+router.get('/video', (req, res) => {
+    res.sendFile(`${INDEXPATH}/page/html/video.html`)
 })
 
 
@@ -31,6 +35,26 @@ router.get('/Subtitles', (req, res) => {
         '20':{time:20, text:'这是一个测试弹幕'},
         '30':{time:30, text:'这是一个测试弹幕'},
     })
+})
+
+
+// 获取视频
+router.get('/VideoFile', (req, res) => {
+    if(req.query.id){
+        res.sendFile(`${INDEXPATH}/page/public/media/stream/${req.query.id}`)
+    }else{
+        res.status(404).end()
+    }
+})
+
+
+// 获取字幕
+router.get('/Track', (req, res) => {
+    if(req.query.id){
+        res.sendFile(`${INDEXPATH}/page/public/media/stream/${req.query.id}.vtt`)
+    }else{
+        res.status(404).end()
+    }
 })
 
 
