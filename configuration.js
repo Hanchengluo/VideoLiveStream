@@ -5,7 +5,7 @@
 module.exports = {
     project:true,  // 开启关闭工厂模式
     express:{
-       port:80     // express绑定端口
+       port:88     // express绑定端口
     },
     mongodb:{
         path:"mongodb://localhost:3306/HomePage",   // mongodb链接
