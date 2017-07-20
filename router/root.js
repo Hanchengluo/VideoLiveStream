@@ -19,25 +19,13 @@ router.use(function(req, res, next){
 
 // 定义网站主页的路由
 router.get('/', (req, res) => {
-    if(req.cookies){
-        let username = req.cookies.username
-        let password = req.cookies.password
-        SQL.User.find({id:username, key: password}).toArray(function(err, docs){
-            if(err){
-                console.log(err)
-            }
-            console.log(docs)
-            if(docs.length == 1){
-                res.cookie('username', username, {path: '/'})
-                res.cookie('password', password, {path: '/'})
-                res.sendFile(`${INDEXPATH}/page/html/index.html`)
-            }else{
-                res.redirect('/Login')
-            }
-        })
-    }else{
-        res.redirect('/Login')
-    }
+    res.sendFile(`${INDEXPATH}/page/html/index.html`)
+})
+
+
+// 视频页面
+router.get('/Video', (req, res) => {
+    res.sendFile(`${INDEXPATH}/page/html/video.html`)
 })
 
 
@@ -55,16 +43,15 @@ router.get('/Login', (req, res) => {
 
 // 登录
 router.post('/Login', (req, res) => {
-    let username = req.body.name
-    let password = req.body.pass
-    SQL.User.find({id:username, key:password}).toArray(function(err, docs){
-        if(err){
-            console.log(err)
-        }
-        if(docs.length == 1){
-            res.cookie('username', username, {path: '/'})
-            res.cookie('password', password, {path: '/'})
-            res.send({code:200})
+    let key = req.body.decrypt == true ? Module.encrypt(req.body.pass) : req.body.pass
+    SQL.User.findOne({id:req.body.name, key:key}, (err, docs) => {
+        err && console.log(err)
+        if(docs){
+            res.cookie('username', req.body.name, {path: '/'})
+            res.cookie('password', Module.decrypt(key), {path: '/'})
+            delete docs._id
+            delete docs.key
+            res.send({code:200, date:docs})
         }else{
             res.send({code:404})
         }
@@ -74,26 +61,14 @@ router.post('/Login', (req, res) => {
 
 // 注册
 router.post('/Sogin', (req, res) => {
-    let username = req.body.name
-    let password = req.body.pass
-    SQL.User.find({id:username}).toArray(function(err, docs){
-        if(err){
-            console.log(err)
-        }
-        if(docs.length == 1){
+    SQL.User.findOne({id:req.body.name}, (err, docs) => {
+        err && console.log(err)
+        if(docs){
             res.send({code:404})
         }else{
-            SQL.User.insertMany([{
-                id:username,
-                key:password
-            }], function(err, result){
-                if(err){
-                    console.log(err)
-                }else{
-                    res.cookie('username', username, {path: '/'})
-                    res.cookie('password', password, {path: '/'})
-                    res.send({code:200})
-                }
+            SQL.User.insertMany([{id:req.body.name, key:req.body.pass}], (err, result) => {
+                err && console.log(err)
+                res.send({code:200})
             })
         }
     })
