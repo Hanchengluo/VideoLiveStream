@@ -19,12 +19,84 @@ router.use(function(req, res, next){
 
 // 定义网站主页的路由
 router.get('/', (req, res) => {
-    res.sendFile(`${INDEXPATH}/page/html/index.html`)
+    if(req.cookies){
+        let username = req.cookies.username
+        let password = req.cookies.password
+        SQL.User.find({id:username, key: password}).toArray(function(err, docs){
+            if(err){
+                console.log(err)
+            }
+            console.log(docs)
+            if(docs.length == 1){
+                res.cookie('username', username, {path: '/'})
+                res.cookie('password', password, {path: '/'})
+                res.sendFile(`${INDEXPATH}/page/html/index.html`)
+            }else{
+                res.redirect('/Login')
+            }
+        })
+    }else{
+        res.redirect('/Login')
+    }
 })
 
-// 定义网站主页的路由
-router.get('/video', (req, res) => {
-    res.sendFile(`${INDEXPATH}/page/html/video.html`)
+
+// 注册页面
+router.get('/Sogin', (req, res) => {
+    res.sendFile(`${INDEXPATH}/page/html/sogin.html`)
+})
+
+
+// 登录页面
+router.get('/Login', (req, res) => {
+    res.sendFile(`${INDEXPATH}/page/html/login.html`)
+})
+
+
+// 登录
+router.post('/Login', (req, res) => {
+    let username = req.body.name
+    let password = req.body.pass
+    SQL.User.find({id:username, key:password}).toArray(function(err, docs){
+        if(err){
+            console.log(err)
+        }
+        if(docs.length == 1){
+            res.cookie('username', username, {path: '/'})
+            res.cookie('password', password, {path: '/'})
+            res.send({code:200})
+        }else{
+            res.send({code:404})
+        }
+    })
+})
+
+
+// 注册
+router.post('/Sogin', (req, res) => {
+    let username = req.body.name
+    let password = req.body.pass
+    SQL.User.find({id:username}).toArray(function(err, docs){
+        if(err){
+            console.log(err)
+        }
+        if(docs.length == 1){
+            res.send({code:404})
+        }else{
+            SQL.User.insertMany([{
+                id:username,
+                key:password
+            }], function(err, result){
+                if(err){
+                    console.log(err)
+                }else{
+                    res.cookie('username', username, {path: '/'})
+                    res.cookie('password', password, {path: '/'})
+                    res.send({code:200})
+                }
+            })
+        }
+    })
 })
 
 
