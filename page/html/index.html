@@ -15,6 +15,7 @@
         <link rel="stylesheet" media="(min-width:1000px)" href="./public/css/pc-style.css" />
         <link rel="stylesheet" media="(max-width:1000px)" href="./public/css/mobile-style.css" />
         <!-- js -->
+        <script src="./public/js/exports/jquery.js"></script>
         <script src="./public/js/exports/vue.js"></script>
         <script src="./public/js/index.js"></script>
     </head>
@@ -23,9 +24,9 @@
             <!-- 头部 -->
             <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}">
                 <!-- 头部控制 -->
-                <div class="head-userlogo click-on" title="用户" v-bind:style="User"></div>
+                <div class="head-userlogo click-on" title="用户" v-bind:style="User" v-on:click="HeadUserTab"></div>
                 <div class="head-userlogin click-on" title="登录" v-bind:style="Login">登录</div>
-                <div class="head-bell" title="通知" v-on:click="NotificationTab" v-bind:style="NotificationTab"><i class="fa fa-bell-o click-on"></i></div>
+                <div class="head-bell" title="通知" v-on:click="NotificationTab" v-bind:style="NotificationStyle"><i class="fa fa-bell-o click-on"></i></div>
                 <div class="index-Head-logo" title="视频和直播">
                     <svg width="120px" height="18px" viewBox="0 0 120 18" stroke="none" stroke-width="1" fill="none">
                         <g fill="#000000">
@@ -69,6 +70,29 @@
                     </div>
                 </div>
                 <!-- 模块列表 end-->
+                 <!-- 用户信息 -->
+                <div class="menu-user" v-bind:class="{'menu-user-on':MenuUser}">
+                    <div class="menu-border-arrow"></div>
+                    <div class="menu-user-data">
+                        <div class="menu-user-name"><a href="#">xivistudios@gmail.com</a></div>
+                        <div class="menu-user-info">
+                            <div class="menu-user-info-logo">
+                                <div class="menu-user-info-logo-img"></div>
+                            </div>
+                            <div class="menu-user-info-msg">
+                                <p><a href="#">20</a>订阅</p>
+                                <p><a href="#">35</a>粉丝</p>
+                                <p><a href="#">9</a>视频</p>
+                                <p><a href="#">108</a>留言</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-user-controls">
+                        <div class="menu-user-controls-cog click-on" title="设置"><i class="fa fa-cog"></i></div>
+                        <div class="menu-user-controls-exit click-on" title="退出登录">退出帐号</div>
+                    </div>
+                </div>
+                <!-- 用户信息 end-->
                 <!-- 通知 -->
                 <div class="Notification" v-bind:class="{'Notification-on':Notification}">
                     <div class="menu-border-arrow"></div>
