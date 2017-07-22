@@ -13,4 +13,4 @@ node.js mongodb nginx ffmpeg
 * Node.JS管理流媒体池，按标准速率接受媒体流，并保持流媒体池的溢出和存储比率
 * 前端通过制定的HTTP地址拉取指定的多媒体流，Node.JS接受请求并从流媒体池拉取指定的格式和分辨率
 * Node.JS通知前端主动连接服务器的WebSocket端口，服务器开始推流
-* 前端接收到视频流并通过WorkerServer开始解包并喂给MediaSourceAPI填充给_<video>_开始播放
+* 前端接收到视频流并通过WorkerServer开始解包并喂给MediaSourceAPI填充给<video>开始播放
