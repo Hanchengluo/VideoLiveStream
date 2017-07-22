@@ -5,7 +5,6 @@ Live Stream Framework
 
 架构
 ---
-> 前后端整体的架构
-> node.js mongodb nginx ffmpeg
+> 前后端整体的架构<br>node.js mongodb nginx ffmpeg
 ##### 视频推流
 >> 视频推流由主播端通过RTMP协议推送到FFmpeg搭建的流媒体服务器 流服务器通过指定的配置转码之后发送给Node.JS创建的Buffer区，Node.JS管理流媒体池，前端按需取流
