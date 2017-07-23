@@ -1,5 +1,8 @@
 Live Stream Framework
 ===
+
+![Alt text](https://www.w3.org/TR/media-source/pipeline_model.svg)
+
 > 这是一个直播推流系统框架  优先解决PC端的兼容<br>
 使用本框架会默认收集你的少量项目信息数据上传至云端服务器，在收集的数据中不包含隐私数据，关于信息收集的条文请见附件
 
