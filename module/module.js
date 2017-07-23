@@ -20,19 +20,19 @@ const map = [
 
 // 加密
 exports.decrypt = (text) => {
-    let decipher = crypto.createDecipher(configuration.crypto.crypto, configuration.crypto.key)
-    let dec = decipher.update(text, 'hex', 'utf8')
-    dec += decipher.final('utf8')
-    return dec
+    let cipher = crypto.createCipher(configuration.crypto.crypto, configuration.crypto.key)
+    let crypted = cipher.update(text, 'utf8', 'hex')
+    crypted += cipher.final('hex')
+    return crypted
 }
 
 
 // 解密
 exports.encrypt = (text) => {
-    let cipher = crypto.createCipher(configuration.crypto.crypto, configuration.crypto.key)
-    let crypted = cipher.update(text, 'utf8', 'hex')
-    crypted += cipher.final('hex')
-    return crypted
+    let decipher = crypto.createDecipher(configuration.crypto.crypto, configuration.crypto.key)
+    let dec = decipher.update(text, 'hex', 'utf8')
+    dec += decipher.final('utf8')
+    return dec
 }
 
 

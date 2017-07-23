@@ -148,6 +148,14 @@ window.onload = () => {
             },
             // 通知
             Notification:false,
+            NotificationStyle:{
+                'opacity':0,
+                'z-index': -100
+            },
+            // 搜索
+            search:{
+                'right':'120px'
+            },
             // 推流地址
             LiveStreamSrc: `./VideoFile${location.search}`,
             // 字幕
@@ -378,8 +386,39 @@ window.onload = () => {
                 let time = sum * ((Event.clientX - Number(Module.LivePlayStyle.left.split('p')[0])) / (FullScreenType == true ? document.documentElement.clientWidth : Number(sessionStorage.LivePlayStyleWidth)))
                 document.getElementById('LiveStream').currentTime = (time >= sum) ? sum : time // 如果超过就设置最大
             },
+            // 推出登录
+            QuitLogin: () => {
+                localStorage.removeItem('UserName')
+                localStorage.removeItem('PassWord')
+                document.cookie = ''
+                document.location.reload(true)
+            },
         }
     })
+    
+    
+    // 判断是否已经登录
+    if(localStorage.UserName != undefined && localStorage.PassWord != undefined){
+        $.post('./Login', {
+            name: localStorage.UserName,
+            pass: localStorage.PassWord,
+            decrypt: true
+        }, (data) => {
+            if(data.code == 200){
+                Module.NotificationStyle.opacity = 1
+                Module.NotificationStyle["z-index"] = 1
+                Module.User.opacity = 1
+                Module.User["z-index"] = 1
+                Module.Login.opacity = 0
+                Module.Login["z-index"] = '-100'
+                Module.search.right = '180px'
+            }
+        })
+    }
+    
+    
+    // 登录
+    $('#Login').click(() => location.href = (location.href = `${location.origin}/Login`))
     
     
     // 视频测试对象

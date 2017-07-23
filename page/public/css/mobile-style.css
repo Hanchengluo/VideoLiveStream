@@ -3,7 +3,7 @@
 * {margin:0;font-family:微软雅黑;font-size:13px;transition:0.5s;}
 input,button,select,textarea {outline:none;}
 body {overflow-x: hidden;background-color: #eee;}
-#docker {display: table;width: 100%;}
+#docker {width: 100%;position: fixed;height: 100%;top:0;left: 0;overflow: auto;}
 a {text-decoration:none;}
 a:hover {text-decoration:none;}
 .click-on,button:hover {cursor:pointer;}
@@ -40,7 +40,7 @@ a:hover {text-decoration:none;}
 .sercha button {border:0;width:50px;position:absolute;right:0;height:99%;background-color:#eee;border-left:1px solid #ccc;color:#999;}
 .sercha button:hover {background-color:#ddd;color:#000;}
 .sercha input {border:0;height:90%;background-color:rgba(0,0,0,0);text-indent:1em;width:250px;}
-.Head-logo {position:absolute;width:100px;height:32px;top:9px;left:110px;background:url(../media/image/LOGO.png);background-size: cover;background-position: 100%;}
+.Head-logo {position:absolute;width:100px;height:32px;top:9px;left:110px;background-size: cover;background-position: 100%;}
 .menu-tips {position:absolute;width:100%;height:40px;top:50px;left:0;background-color:#fff;border-top:1px solid #ccc;transform-origin:top;transform:rotateX(-90deg);opacity:0;}
 .menu-tips-on {transform:rotateX(0deg);opacity:1;}
 .menu-tips-ul {position:absolute;left:100px;right:100px;bottom:0;}

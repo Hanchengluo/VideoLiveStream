@@ -29,13 +29,7 @@ router.get('/Video', (req, res) => {
 })
 
 
-// 注册页面
-router.get('/Sogin', (req, res) => {
-    res.sendFile(`${INDEXPATH}/page/html/sogin.html`)
-})
-
-
-// 登录页面
+// 登录注册页面
 router.get('/Login', (req, res) => {
     res.sendFile(`${INDEXPATH}/page/html/login.html`)
 })
@@ -43,15 +37,19 @@ router.get('/Login', (req, res) => {
 
 // 登录
 router.post('/Login', (req, res) => {
-    let key = req.body.decrypt == true ? Module.encrypt(req.body.pass) : req.body.pass
+    let key = req.body.decrypt == 'true' ? Module.encrypt(req.body.pass) : req.body.pass
     SQL.User.findOne({id:req.body.name, key:key}, (err, docs) => {
         err && console.log(err)
         if(docs){
             res.cookie('username', req.body.name, {path: '/'})
             res.cookie('password', Module.decrypt(key), {path: '/'})
             delete docs._id
-            delete docs.key
-            res.send({code:200, date:docs})
+            docs.key = Module.decrypt(key)
+            res.send({
+                code:200, 
+                data:docs,
+                referer:req.headers.referer
+            })
         }else{
             res.send({code:404})
         }

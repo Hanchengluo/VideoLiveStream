@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <title>Live Stream Framework</title>
+	    <meta charset="UTF-8"/>
+        <meta name="renderer" content="webkit"/>
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="./public/media/image/favicon.png" mce_href="favicon.ico" rel="icon" type="image/x-icon"/>
+        <!-- css -->
+        <link rel="stylesheet" href="./public/css/awesome/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="./public/css/animate.css"/>
+        <link rel="stylesheet" href="./public/css/loaders.css"/>
+        <!-- Media query css -->
+        <link rel="stylesheet" media="(min-width:1000px)" href="./public/css/pc-style.css" />
+        <link rel="stylesheet" media="(max-width:1000px)" href="./public/css/mobile-style.css" />
+        <!-- js -->
+        <script src="./public/js/exports/jquery.js"></script>
+        <script src="./public/js/exports/vue.js"></script>
+        <script src="./public/js/exports/canvas-background.js"></script>
+        <script src="./public/js/login.js"></script>
+    </head>
+    <body>
+        <div id="docker">
+            <div id="background"></div>
+            <div class="Login" data-type="login">
+                <div class="Login-title">Live Stream Framework</div>
+                <div class="Login-of-Sogin">
+                    <button id="tab-login" class="tab-on" style="border-bottom: 1px solid #f00222;" data-type="login">登录</button>
+                    <button id="tab-sogin" data-type="sogin">注册</button>
+                </div>
+                <div class="Login-input">
+                    <input type="text" class="Login-input-top" placeholder="邮箱或者手机号" id="UserName">
+                    <input type="text" class="Login-input-hide" placeholder="密码" id="PassWord-two">
+                    <input type="password" class="Login-input-bottom" placeholder="密码" id="PassWord">
+                </div>
+                <div class="Login-error">
+                    <span>无法登录？</span>
+                </div>
+                <div class="Login-sogin-on">
+                    <button>登录</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -3,7 +3,7 @@
 * {margin:0;font-family:微软雅黑;font-size:13px;transition:0.5s;}
 input,button,select,textarea {outline:none;}
 body {overflow-x: hidden;background-color: #eee;}
-#docker {display: table;width: 100%;}
+#docker {width: 100%;position: fixed;height: 100%;top:0;left: 0;overflow: auto;}
 a {text-decoration:none;}
 a:hover {text-decoration:none;}
 .click-on,button:hover {cursor:pointer;}
@@ -40,7 +40,7 @@ a:hover {text-decoration:none;}
 .sercha button {border:0;width:50px;position:absolute;right:0;height:99%;background-color:#eee;border-left:1px solid #ccc;color:#999;}
 .sercha button:hover {background-color:#ddd;color:#000;}
 .sercha input {border:0;height:90%;background-color:rgba(0,0,0,0);text-indent:1em;width:250px;}
-.Head-logo {position:absolute;width:150px;height:32px;top:9px;left:110px;background:url(../media/image/LOGO.png);background-size: cover;background-position: 100%;}
+.Head-logo {position:absolute;width:150px;height:32px;top:9px;left:110px;background-size: cover;background-position: 100%;}
 .index-Head-logo {position: absolute;
     height: 50px;
     top: 0px;
@@ -112,4 +112,95 @@ a:hover {text-decoration:none;}
     color: #fff;
     text-align: center;
     line-height: 30px;
+}
+
+.Login {
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 30vh;
+}
+
+.Login-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+.Login-of-Sogin {
+    margin-top: 60px;
+}
+
+.Login-of-Sogin button {
+    border: 0;
+    background-color: rgba(0,0,0,0);
+    line-height: 2em;
+    margin-right:10px;
+}
+
+.Login-input {
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.Login-input input {
+    line-height: 3.5em;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    text-indent: 10px;
+}
+
+.Login-input-top {
+    border-radius: 5px 5px 0 0;
+}
+
+.Login-input-bottom {
+    border-radius: 0 0 5px 5px;
+}
+
+.Login-sogin-on {
+    margin-top: 20px;
+}
+
+.Login-sogin-on button {
+    border: 0;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(13, 98, 224);
+    color: #fff;
+    border-radius: 5px;
+}
+
+.Login-sogin-on button:hover {
+    background-color: #f00222;
+}
+
+.tab-on {
+    color: #f00222;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    z-index: -1;
+    background-color: #fff;
+}
+
+.Login-error {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.Login-error span {
+    font-size: 0.8em;
+}
+
+.Login-input-hide {
+    display: none;
 }

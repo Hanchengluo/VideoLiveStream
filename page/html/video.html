@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" manifest="./appcache/package.appcache">
     <head>
-        <title>视频直播推流系统</title>
+        <title>Live Stream Framework</title>
 	    <meta charset="UTF-8"/>
         <meta name="renderer" content="webkit"/>
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -15,6 +15,7 @@
         <link rel="stylesheet" media="(min-width:1000px)" href="./public/css/pc-style.css" />
         <link rel="stylesheet" media="(max-width:1000px)" href="./public/css/mobile-style.css" />
         <!-- js -->
+        <script src="./public/js/exports/jquery.js"></script>
         <script src="./public/js/exports/socket.io.js"></script>
         <script src="./public/js/exports/vue.js"></script>
         <script src="./public/js/video.js"></script>
@@ -22,12 +23,12 @@
     <body>
         <div id="docker">
             <!-- 头部 -->
-            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}" v-bind:style="HeadStyle">
+            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}">
                 <!-- 头部控制 -->
-                <div class="head-userlogo click-on" title="用户" v-on:click="HeadUserTab" v-bind:style="User"></div>
-                <div class="head-userlogin click-on" title="登录" v-bind:style="Login">登录</div>
-                <div class="head-bell" title="通知" v-on:click="NotificationTab"><i class="fa fa-bell-o click-on"></i></div>
-                <div class="Head-logo" title="视频和直播">
+                <div class="head-userlogo click-on" title="用户" v-bind:style="User" v-on:click="HeadUserTab"></div>
+                <div class="head-userlogin click-on" title="登录" v-bind:style="Login" id="Login">登录</div>
+                <div class="head-bell" title="通知" v-on:click="NotificationTab" v-bind:style="NotificationStyle"><i class="fa fa-bell-o click-on"></i></div>
+                <div class="index-Head-logo" title="视频和直播">
                     <svg width="120px" height="18px" viewBox="0 0 120 18" stroke="none" stroke-width="1" fill="none">
                         <g fill="#000000">
                             <polygon points="0 16.9425771 1.787 16.9425771 1.787 0.652062857 0 0.652062857"></polygon>
@@ -46,14 +47,13 @@
                         </g>
                     </svg>
                 </div>
-                <div class="head-menu" title="菜单" v-on:click="HeadMenu"><i class="fa fa-bars click-on"></i></div>
-                <div class="sercha click-on">
+                <div class="sercha click-on" v-bind:style="search">
                     <input type="text" title="请输入关键字搜索" placeholder="搜索">
                     <button><i class="fa fa-search"></i></button>
                 </div>
                 <!-- 头部控制 end-->
                 <!-- 模块列表-->
-                <div class="menu-tips" v-bind:class="{'menu-tips-on':MenuTips}">
+                <div class="menu-tips menu-tips-on">
                     <div class="menu-tips-ul">
                         <div class="click-on">首页</div>
                         <div class="click-on">电影</div>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <!-- 模块列表 end-->
-                <!-- 用户信息 -->
+                 <!-- 用户信息 -->
                 <div class="menu-user" v-bind:class="{'menu-user-on':MenuUser}">
                     <div class="menu-border-arrow"></div>
                     <div class="menu-user-data">
@@ -90,7 +90,7 @@
                     </div>
                     <div class="menu-user-controls">
                         <div class="menu-user-controls-cog click-on" title="设置"><i class="fa fa-cog"></i></div>
-                        <div class="menu-user-controls-exit click-on" title="退出登录">退出帐号</div>
+                        <div class="menu-user-controls-exit click-on" title="退出登录" v-on:click="QuitLogin">退出帐号</div>
                     </div>
                 </div>
                 <!-- 用户信息 end-->

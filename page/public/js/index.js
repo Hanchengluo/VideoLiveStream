@@ -54,6 +54,13 @@ window.onload = () => {
                 Module.MenuTips = false
                 Module.Notification = false
             },
+            // 推出登录
+            QuitLogin: () => {
+                localStorage.removeItem('UserName')
+                localStorage.removeItem('PassWord')
+                document.cookie = ''
+                document.location.reload(true)
+            },
         }
     })
     
@@ -76,6 +83,10 @@ window.onload = () => {
             }
         })
     }
+    
+    
+    // 登录
+    $('#Login').click(() => location.href = (location.href = `${location.origin}/Login`))
     
     
 }
