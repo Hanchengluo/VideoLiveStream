@@ -82,7 +82,7 @@ router.get('/Subtitles', (req, res) => {
 
 // 获取视频
 router.get('/VideoFile', (req, res) => {
-    fs.readFile(`${INDEXPATH}/page/public/media/stream/Video.mp4`, (err, data) => res.send(data))
+    fs.readFile(`${INDEXPATH}/page/public/media/stream/VideoTest.webm`, (err, data) => res.send(data))
 })
 
 

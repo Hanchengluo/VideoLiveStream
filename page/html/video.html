@@ -138,9 +138,7 @@
                     </div>
                     <!-- 视频推荐层 end-->
                     <!-- 视频 -->
-                    <video preload v-bind:src="LiveStreamSrc" id="LiveStream" height="100%"v-on:canplaythrough="canplaythrough" v-on:timeupdate="timeupdate" v-on:ended="ended" v-on:waiting="waiting"  v-on:playing="playing" v-bind:style="VideoStyle">
-                        <track srclang="zh-cn" label="简体中文" kind="caption" v-bind:src="VideoTrack">
-                    </video>
+                    <video preload autoplay id="LiveStream" height="100%" v-on:canplaythrough="canplaythrough" v-on:timeupdate="timeupdate" v-on:ended="ended" v-on:waiting="waiting"  v-on:playing="playing" v-bind:style="VideoStyle"></video>
                     <!-- 视频 end-->
                     <!-- 控制条 -->
                     <div class="live-stream-controls" v-bind:style="LiveStreamControls">                   

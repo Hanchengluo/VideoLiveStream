@@ -15,8 +15,13 @@ window.onload = () => {
     let VideoLoad = false // 视频是否加载完成
     let FullScreenType = false // 是否全屏
     let Module = new Object() // vue组件
+    window.MediaSource = window.MediaSource || window.WebKitMediaSource
+    (!!!window.MediaSource) && console.error('==>> MediaSource API is not available')
+    localStorage.referer = location.href
+    
+    
     // 弹幕管道
-    let StreamSubtitles = new function(){
+    const StreamSubtitles = new function(){
         // 弹幕使用管道填充模式
         this.play = 0 // 保存播放时间
         this.data = new Object() // 保存弹幕对象
@@ -33,7 +38,7 @@ window.onload = () => {
         }
     }
     // 计算样式
-    let MathStyle = function(){
+    const MathStyle = function(){
         AspectRatio = (document.documentElement.clientWidth > 1000) ? 0.7 : 0.5
         let videoWidth = (document.getElementById('LiveStream').videoWidth / document.getElementById('LiveStream').videoHeight) * (document.documentElement.clientHeight * AspectRatio)
         return {
@@ -41,26 +46,33 @@ window.onload = () => {
             left: (document.documentElement.clientWidth / 2) - (videoWidth / 2)
         }
     }
-    
-    
     // xhr方法
-    const XHR = (Method, Url, Data, callback) => {
+    const XHR = (Method, Url, Data, callback, Type) => {
         let Xhr = new XMLHttpRequest()
-        Xhr.open(Method, Url)
-        Xhr.onreadystatechange = () => {
-            if(Xhr.readyState == 4 && Xhr.status == 200){
-                if(typeof Data == 'function'){
-                    Data(Xhr.responseText)
-                }else{
-                    callback(Xhr.responseText)
-                } 
+        Xhr.open(Method, Url, true)
+        Type && (Xhr.responseType = Type)
+        Xhr.send(Data)
+        Xhr.onload = (Evrnt) => (Xhr.status == 200) && callback(Xhr.response)
+    }
+    // 加载媒体流
+    const GETSTREAM = ({MediaVideo, mimeCodec, FILE}, CALLBACK) => {
+        window.MediaSource && (function(){
+            let mediaSource = new MediaSource()
+            let reader = new FileReader()
+            let mediaSourceCallback = () => {
+                let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec)
+                XHR('GET', FILE, null, (StreamArray) => {
+                    reader.readAsArrayBuffer(new Blob([new Uint8Array(StreamArray)], {type: 'video/webm'}))
+                    reader.onload = (Event) => sourceBuffer.appendBuffer(new Uint8Array(Event.target.result))
+                }, 'arraybuffer')
+                sourceBuffer.addEventListener('updateend', (Error) =>  mediaSource.endOfStream())
+                sourceBuffer.addEventListener('error', (Error) => CALLBACK('==>> sourceBuffer ERROR', Error))
             }
-        }
-        if(typeof Data == 'function'){
-            Xhr.send()
-        }else{
-            Xhr.send(Data)
-        }
+            MediaVideo.src = window.URL.createObjectURL(mediaSource)
+            mediaSource.addEventListener('sourceopen', mediaSourceCallback, false)
+            mediaSource.addEventListener('webkitsourceopen', mediaSourceCallback, false)
+            mediaSource.addEventListener('webkitsourceended', (Event) => CALLBACK('==>> mediaSource readyState: ' + Event.readyState), false)
+        })()
     }
     // 全屏
     const OpenFullScreen = (element) => {
@@ -70,7 +82,7 @@ window.onload = () => {
         element.msRequestFullscreen && element.msRequestFullscreen()
     }
     // 退出全屏
-    let ExitFullscreen = () => {
+    const ExitFullscreen = () => {
         document.exitFullscreen && document.exitFullscreen()
         document.mozCancelFullScreen && document.mozCancelFullScreen()
         document.webkitExitFullscreen && document.webkitExitFullscreen()
@@ -96,21 +108,8 @@ window.onload = () => {
             Module.HeadStyle['z-index'] = 1
         }
     }
-    // 全屏函数监听
-    document.addEventListener("fullscreenchange", ViewFullEvent)
-    document.addEventListener("mozfullscreenchange", ViewFullEvent)
-    document.addEventListener("webkitfullscreenchange", ViewFullEvent)
-    document.addEventListener("msfullscreenchange", ViewFullEvent)
-    // 全局按键监听
-    document.body.onkeydown = (Event) => {
-        (Event.which == 27 && FullScreenType) && ExitFullscreen() // 退出全屏
-        (Event.which == 37) && (document.getElementById('LiveStream').currentTime = Number(localStorage.VideoPlayCurrentTime) - 10) // 视频后退
-        (Event.which == 39) && (document.getElementById('LiveStream').currentTime = Number(localStorage.VideoPlayCurrentTime) + 10) // 视频前进
-    }
     
     
-    // 初始化弹幕
-    XHR('GET', `./Subtitles${location.search}`, (magess) => (StreamSubtitles.data = JSON.parse(magess)))
     // 初始化Vue
     Module = new Vue(new function(){
         // 组件节点
@@ -156,10 +155,6 @@ window.onload = () => {
             search:{
                 'right':'120px'
             },
-            // 推流地址
-            LiveStreamSrc: '',
-            // 字幕
-            VideoTrack:`./Track${location.search}`,
             // 控制条显示隐藏
             LiveStreamControls:{
                 'opacity':'1'
@@ -397,29 +392,6 @@ window.onload = () => {
     })
     
     
-    // MediaSource
-    let MediaVideo = document.getElementById('LiveStream')
-    let mimeCodec = `video/mp4; codecs="avc1.42E01E, mp4a.40.2"`
-    if('MediaSource' in window && MediaSource.isTypeSupported(mimeCodec)){
-        let mediaSource = new MediaSource()
-        MediaVideo.src = URL.createObjectURL(mediaSource)
-        mediaSource.addEventListener('sourceopen', function(Event){
-            let mediaSource = this
-            let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec)
-            sourceBuffer.addEventListener('updateend', function(Event){
-                mediaSource.endOfStream()
-                MediaVideo.play()
-            })
-            $.get('/VideoFile', function(data){
-                console.log(sourceBuffer)
-                sourceBuffer.appendBuffer(data)
-            })
-        })
-    }else{
-        console.error('Unsupported MIME type or codec: ', mimeCodec)
-    }
-    
-    
     // 判断是否已经登录
     if(localStorage.UserName != undefined && localStorage.PassWord != undefined){
         $.post('./Login', {
@@ -438,16 +410,32 @@ window.onload = () => {
             }
         })
     }
-    
-    
+    // 初始化弹幕
+    XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess)))
+    // 加载直播流
+    GETSTREAM({
+        MediaVideo: document.getElementById('LiveStream'),
+        mimeCodec: 'video/webm; codecs="vorbis,vp8"',
+        FILE: 'http://localhost/public/media/stream/VideoTest.webm'
+    }, (Error, Fun) => {
+        console.log('==>> GetStream ERROR ', Error, Fun)
+    })
+    // 全屏函数监听
+    document.addEventListener("fullscreenchange", ViewFullEvent)
+    document.addEventListener("mozfullscreenchange", ViewFullEvent)
+    document.addEventListener("webkitfullscreenchange", ViewFullEvent)
+    document.addEventListener("msfullscreenchange", ViewFullEvent)
+    // 全局按键监听
+    document.body.onkeydown = (Event) => {
+        (Event.which == 27 && FullScreenType) && ExitFullscreen() // 退出全屏
+        (Event.which == 37) && (document.getElementById('LiveStream').currentTime = Number(localStorage.VideoPlayCurrentTime) - 10) // 视频后退
+        (Event.which == 39) && (document.getElementById('LiveStream').currentTime = Number(localStorage.VideoPlayCurrentTime) + 10) // 视频前进
+    }
     // 登录
     $('#Login').click(() => location.href = (location.href = `${location.origin}/Login`))
-    localStorage.referer = location.href
-    
-    
     // 视频测试对象
     document.getElementById('LiveStream').onprogress = (Event) => {
-        // console.log('视频测试对象 ==>>', new MediaProject(document.getElementById('LiveStream')))
+        console.log('视频测试对象 ==>>', new MediaProject(document.getElementById('LiveStream')))
     }
     
  
