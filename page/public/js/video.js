@@ -67,7 +67,11 @@ window.onload = () => {
                     reader.onload = (Event) => sourceBuffer.appendBuffer(new Uint8Array(Event.target.result)) // 创建完成之后喂给 MediaSourceBuffer
                 }, 'arraybuffer')
                 // MediaSourceBuffer ON 事件
-                sourceBuffer.addEventListener('updateend', (Error) =>  mediaSource.endOfStream())
+                sourceBuffer.mode = 'sequence'
+                sourceBuffer.addEventListener('updateend', (Error) =>  {
+                    //mediaSource.endOfStream()
+                    Module.canplaythrough()
+                })
                 sourceBuffer.addEventListener('error', (Error) => CALLBACK('==>> sourceBuffer ERROR', Error))
             }
             MediaVideo.src = window.URL.createObjectURL(mediaSource) // 视频地址指向 MediaSource
@@ -420,8 +424,8 @@ window.onload = () => {
     // 加载直播流
     GETSTREAM({
         MediaVideo: document.getElementById('LiveStream'),
-        mimeCodec: 'video/webm; codecs="vorbis,vp8"',
-        FILE: 'http://localhost/public/media/stream/VideoTest.webm'
+        mimeCodec: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"',
+        FILE: 'http://localhost/public/media/stream/Video.mp4'
     }, (Error, Fun) => {
         console.log('==>> GetStream ERROR ', Error, Fun)
     })
