@@ -16,7 +16,6 @@ window.onload = () => {
     let FullScreenType = false // 是否全屏
     let Module = new Object() // vue组件
     window.MediaSource = window.MediaSource || window.WebKitMediaSource
-    (!!!window.MediaSource) && console.error('==>> MediaSource API is not available')
     localStorage.referer = location.href
     
     
@@ -56,23 +55,29 @@ window.onload = () => {
     }
     // 加载媒体流
     const GETSTREAM = ({MediaVideo, mimeCodec, FILE}, CALLBACK) => {
-        window.MediaSource && (function(){
-            let mediaSource = new MediaSource()
-            let reader = new FileReader()
+        // 如果支持此API就拉取流
+        if(window.MediaSource){
+            let mediaSource = new MediaSource() // 初始化 MediaSource
+            let reader = new FileReader() // 初始化 FileReader
             let mediaSourceCallback = () => {
-                let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec)
+                let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec) // MIME类型
+                // Xhr获取视频切片
                 XHR('GET', FILE, null, (StreamArray) => {
-                    reader.readAsArrayBuffer(new Blob([new Uint8Array(StreamArray)], {type: 'video/webm'}))
-                    reader.onload = (Event) => sourceBuffer.appendBuffer(new Uint8Array(Event.target.result))
+                    reader.readAsArrayBuffer(new Blob([new Uint8Array(StreamArray)], {type: 'video/webm'})) // 创建文件对象
+                    reader.onload = (Event) => sourceBuffer.appendBuffer(new Uint8Array(Event.target.result)) // 创建完成之后喂给 MediaSourceBuffer
                 }, 'arraybuffer')
+                // MediaSourceBuffer ON 事件
                 sourceBuffer.addEventListener('updateend', (Error) =>  mediaSource.endOfStream())
                 sourceBuffer.addEventListener('error', (Error) => CALLBACK('==>> sourceBuffer ERROR', Error))
             }
-            MediaVideo.src = window.URL.createObjectURL(mediaSource)
+            MediaVideo.src = window.URL.createObjectURL(mediaSource) // 视频地址指向 MediaSource
+            // MediaSource ON 事件
             mediaSource.addEventListener('sourceopen', mediaSourceCallback, false)
             mediaSource.addEventListener('webkitsourceopen', mediaSourceCallback, false)
             mediaSource.addEventListener('webkitsourceended', (Event) => CALLBACK('==>> mediaSource readyState: ' + Event.readyState), false)
-        })()
+        }else{
+            CALLBACK('==>> MediaSource API is not available') // 不支持
+        }
     }
     // 全屏
     const OpenFullScreen = (element) => {
