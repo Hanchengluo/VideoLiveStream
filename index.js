@@ -5,7 +5,7 @@ const configuration = require('./configuration.js')
 const router = require('./router/root.js')
 const express = require('express')
 const bodyParser = require('body-parser')
-const Websocket = require('socket.io').listen(configuration.websocket.port)
+const SocketIo = require('socket.io').listen(configuration.websocket.port)
 const app = express()
 
 
@@ -36,6 +36,6 @@ app.listen(configuration.express.port)
 
 
 // WebSocket连接
-Websocket.sockets.on('connection', (socket) => {
+SocketIo.sockets.on('connection', (socket) => {
     
 })

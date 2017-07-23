@@ -61,7 +61,7 @@ window.onload = () => {
                     if(data.code == 200){
                         localStorage.UserName = UserName
                         localStorage.PassWord = data.data.key
-                        location.href = data.referer
+                        location.href = localStorage.referer
                     }
                 })
             }else{

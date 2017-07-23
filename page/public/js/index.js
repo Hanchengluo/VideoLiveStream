@@ -87,6 +87,7 @@ window.onload = () => {
     
     // 登录
     $('#Login').click(() => location.href = (location.href = `${location.origin}/Login`))
+    localStorage.referer = location.href
     
     
 }

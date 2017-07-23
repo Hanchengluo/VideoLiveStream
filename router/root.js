@@ -5,6 +5,7 @@
 
 const Module = require('../module/module.js')
 const express = require('express')
+const fs = require('fs')
 const router = express.Router()
 
 
@@ -45,11 +46,7 @@ router.post('/Login', (req, res) => {
             res.cookie('password', Module.decrypt(key), {path: '/'})
             delete docs._id
             docs.key = Module.decrypt(key)
-            res.send({
-                code:200, 
-                data:docs,
-                referer:req.headers.referer
-            })
+            res.send({code:200, data:docs})
         }else{
             res.send({code:404})
         }
@@ -85,11 +82,7 @@ router.get('/Subtitles', (req, res) => {
 
 // 获取视频
 router.get('/VideoFile', (req, res) => {
-    if(req.query.id){
-        res.sendFile(`${INDEXPATH}/page/public/media/stream/${req.query.id}`)
-    }else{
-        res.status(404).end()
-    }
+    fs.readFile(`${INDEXPATH}/page/public/media/stream/Video.mp4`, (err, data) => res.send(data))
 })
 
 
