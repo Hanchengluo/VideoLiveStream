@@ -15,6 +15,7 @@
         <link rel="stylesheet" media="(min-width:1000px)" href="./public/css/pc-style.css" />
         <link rel="stylesheet" media="(max-width:1000px)" href="./public/css/mobile-style.css" />
         <!-- js -->
+        <script src="./public/js/exports/module.js"></script>
         <script src="./public/js/exports/jquery.js"></script>
         <script src="./public/js/exports/socket.io.js"></script>
         <script src="./public/js/exports/vue.js"></script>
@@ -23,7 +24,7 @@
     <body>
         <div id="docker">
             <!-- 头部 -->
-            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}">
+            <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}" v-bind:style="HeadStyle">
                 <!-- 头部控制 -->
                 <div class="head-userlogo click-on" title="用户" v-bind:style="User" v-on:click="HeadUserTab"></div>
                 <div class="head-userlogin click-on" title="登录" v-bind:style="Login" id="Login">登录</div>

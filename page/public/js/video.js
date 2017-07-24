@@ -37,7 +37,7 @@ window.onload = () => {
         }
     }
     // 计算样式
-    const MathStyle = function(){
+    let MathStyle = function(){
         AspectRatio = (document.documentElement.clientWidth > 1000) ? 0.7 : 0.5
         let videoWidth = (document.getElementById('LiveStream').videoWidth / document.getElementById('LiveStream').videoHeight) * (document.documentElement.clientHeight * AspectRatio)
         return {
@@ -58,23 +58,15 @@ window.onload = () => {
         // 如果支持此API就拉取流
         if(window.MediaSource){
             let mediaSource = new MediaSource() // 初始化 MediaSource
-            let reader = new FileReader() // 初始化 FileReader
-            let mediaSourceCallback = () => {
+            MediaVideo.src = window.URL.createObjectURL(mediaSource) // 视频地址指向 MediaSource
+            let mediaSourceCallback = function(){
                 let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec) // MIME类型
                 // Xhr获取视频切片
                 XHR('GET', FILE, null, (StreamArray) => {
-                    reader.readAsArrayBuffer(new Blob([new Uint8Array(StreamArray)], {type: 'video/webm'})) // 创建文件对象
-                    reader.onload = (Event) => sourceBuffer.appendBuffer(new Uint8Array(Event.target.result)) // 创建完成之后喂给 MediaSourceBuffer
+                    sourceBuffer.addEventListener('updateend', () => mediaSource.endOfStream())
+                    sourceBuffer.appendBuffer(StreamArray)
                 }, 'arraybuffer')
-                // MediaSourceBuffer ON 事件
-                sourceBuffer.mode = 'sequence'
-                sourceBuffer.addEventListener('updateend', (Error) =>  {
-                    //mediaSource.endOfStream()
-                    Module.canplaythrough()
-                })
-                sourceBuffer.addEventListener('error', (Error) => CALLBACK('==>> sourceBuffer ERROR', Error))
             }
-            MediaVideo.src = window.URL.createObjectURL(mediaSource) // 视频地址指向 MediaSource
             // MediaSource ON 事件
             mediaSource.addEventListener('sourceopen', mediaSourceCallback, false)
             mediaSource.addEventListener('webkitsourceopen', mediaSourceCallback, false)
@@ -103,17 +95,20 @@ window.onload = () => {
         Module.LiveStreamControls.opacity = 1
         setTimeout(() => (delete Module.LiveStreamControls.opacity), 5000)
         // 视频resize
+        console.log(Module.LivePlayStyle.width)
         if(fullscreenElement){
             FullScreenType = true
             Module.FullScreenType = true
             Module.LivePlayStyle.left = '0px'
             Module.LivePlayStyle.width = document.documentElement.clientWidth - 2 + 'px'
-            Module.HeadStyle['z-index'] = 0
+            Module.VideoStyle.width = document.documentElement.clientWidth + 'px'
+            Module.HeadStyle['z-index'] = '-100'
         }else{
             FullScreenType = false
             Module.FullScreenType = false
             Module.LivePlayStyle.left = Number(sessionStorage.LivePlayStyleLeft) + 'px'
             Module.LivePlayStyle.width = Number(sessionStorage.LivePlayStyleWidth) + 'px'
+            Module.VideoStyle.width = ''
             Module.HeadStyle['z-index'] = 1
         }
     }
@@ -181,7 +176,8 @@ window.onload = () => {
             },
             // 视频播放器透明度
             VideoStyle:{
-                'opacity':'1'
+                'opacity':'1',
+                'width':false
             },
             // 播放控制
             VideoPause:true, // 暂停图标
@@ -324,6 +320,7 @@ window.onload = () => {
             timeupdate: (Event) => {
                 Module.LiveStreamPlanStyle.width = Event.target.currentTime / Event.target.duration * 100 + '%', 
                 localStorage.VideoPlayCurrentTime = Event.target.currentTime
+                /* 弹幕   测试状态 不开启
                 let key = Math.ceil(Event.target.currentTime) // 当前播放时间
                 // 这里是避免重复触发的函数
                 if(key != StreamSubtitles.play){
@@ -350,6 +347,7 @@ window.onload = () => {
                         }
                     }
                 }
+                */
             },
             // 视频播放结束
             ended: () => {
@@ -420,7 +418,7 @@ window.onload = () => {
         })
     }
     // 初始化弹幕
-    XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess)))
+    XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess), console.log(magess)))
     // 加载直播流
     GETSTREAM({
         MediaVideo: document.getElementById('LiveStream'),
