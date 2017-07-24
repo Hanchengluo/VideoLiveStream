@@ -1,15 +1,21 @@
 CACHE MANIFEST
 # 2017-7-16 0:30  Mr.Panda
-# 1500839399727
+# 1500856095482
 /public/css/awesome/css/font-awesome.min.css
 /public/css/awesome/fonts/fontawesome-webfont.woff2?v=4.7.0
 /public/css/animate.css
 /public/css/loaders.css
-/public/css/style.css
+/public/css/pc-style.css
+/public/css/mobile-style.css
 /public/js/exports/socket.io.js
 /public/js/exports/vue.js
-/public/js/main.js
+/public/js/exports/jquery.js
+/public/js/index.js
+/public/js/login.js
+/public/js/video.js
 /public/media/image/youtube.webp
+/public/media/image/back.jpg
+/public/media/image/footer.jpg
 
 NETWORK:
 *

@@ -26,10 +26,11 @@
             <!-- 头部 -->
             <div class="Head" v-bind:class="{'animated': Animated, 'fadeInDown':fadeInDown}" v-bind:style="HeadStyle">
                 <!-- 头部控制 -->
+                <div class="head-menu click-on" title="菜单" v-on:click="HeadMenu"><i class="fa fa-bars"></i></div>
                 <div class="head-userlogo click-on" title="用户" v-bind:style="User" v-on:click="HeadUserTab"></div>
                 <div class="head-userlogin click-on" title="登录" v-bind:style="Login" id="Login">登录</div>
                 <div class="head-bell" title="通知" v-on:click="NotificationTab" v-bind:style="NotificationStyle"><i class="fa fa-bell-o click-on"></i></div>
-                <div class="index-Head-logo" title="视频和直播">
+                <div class="Head-logo" title="视频和直播">
                     <svg width="120px" height="18px" viewBox="0 0 120 18" stroke="none" stroke-width="1" fill="none">
                         <g fill="#000000">
                             <polygon points="0 16.9425771 1.787 16.9425771 1.787 0.652062857 0 0.652062857"></polygon>
@@ -54,7 +55,7 @@
                 </div>
                 <!-- 头部控制 end-->
                 <!-- 模块列表-->
-                <div class="menu-tips menu-tips-on">
+                <div class="menu-tips" v-bind:class="{'menu-tips-on':MenuTips}">
                     <div class="menu-tips-ul">
                         <div class="click-on">首页</div>
                         <div class="click-on">电影</div>
