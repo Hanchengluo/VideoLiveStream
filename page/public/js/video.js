@@ -418,7 +418,7 @@ window.onload = () => {
         })
     }
     // 初始化弹幕
-    XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess), console.log(magess)))
+    XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess), console.log('弹幕测试数据 ==>>', magess)))
     // 加载直播流
     GETSTREAM({
         MediaVideo: document.getElementById('LiveStream'),
