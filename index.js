@@ -1,8 +1,10 @@
 'use strict'
 
 const Module = require('./module/module.js')
+const configWrite = require('./configWrite.js')
 const configuration = require('./configuration.js')
 const router = require('./router/root.js')
+const MongoDB = require('mongodb')
 const express = require('express')
 const bodyParser = require('body-parser')
 const SocketIo = require('socket.io').listen(configuration.websocket.port)
@@ -14,10 +16,9 @@ global.INDEXPATH = __dirname
 global.CONFIGURATION = configuration
 
 
-// 初始化appcache
-// 连接数据库
-Module.appcache()
-Module.mongodb()
+// 初始化配置
+configWrite.appcache()
+configWrite.nginx()
 
 
 // 解析中间件绑定
@@ -38,4 +39,18 @@ app.listen(configuration.express.port)
 // WebSocket连接
 SocketIo.sockets.on('connection', (socket) => {
     
+})
+
+
+// 连接数据库
+MongoDB.MongoClient.connect(configuration.mongodb.path, (Error, mongodb)=>{
+    global.SQL = new Object()
+    if(Error){
+        console.error(Error)
+    }else{
+        // 连接表
+        for(let i of configuration.mongodb.collection){
+            global.SQL[i] = mongodb.collection(i)
+        }
+    }
 })

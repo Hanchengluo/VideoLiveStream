@@ -15,6 +15,8 @@ window.onload = () => {
     let VideoLoad = false // 视频是否加载完成
     let FullScreenType = false // 是否全屏
     let Module = new Object() // vue组件
+    let Sokcte = io.connect(location.origin)
+    let MediaIum = 0
     window.MediaSource = window.MediaSource || window.WebKitMediaSource
     localStorage.referer = location.href
     
@@ -52,28 +54,6 @@ window.onload = () => {
         Type && (Xhr.responseType = Type)
         Xhr.send(Data)
         Xhr.onload = (Evrnt) => (Xhr.status == 200) && callback(Xhr.response)
-    }
-    // 加载媒体流
-    const GETSTREAM = ({MediaVideo, mimeCodec, FILE}, CALLBACK) => {
-        // 如果支持此API就拉取流
-        if(window.MediaSource){
-            let mediaSource = new MediaSource() // 初始化 MediaSource
-            MediaVideo.src = window.URL.createObjectURL(mediaSource) // 视频地址指向 MediaSource
-            let mediaSourceCallback = function(){
-                let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec) // MIME类型
-                // Xhr获取视频切片
-                XHR('GET', FILE, null, (StreamArray) => {
-                    sourceBuffer.addEventListener('updateend', () => mediaSource.endOfStream())
-                    sourceBuffer.appendBuffer(StreamArray)
-                }, 'arraybuffer')
-            }
-            // MediaSource ON 事件
-            mediaSource.addEventListener('sourceopen', mediaSourceCallback, false)
-            mediaSource.addEventListener('webkitsourceopen', mediaSourceCallback, false)
-            mediaSource.addEventListener('webkitsourceended', (Event) => CALLBACK('==>> mediaSource readyState: ' + Event.readyState), false)
-        }else{
-            CALLBACK('==>> MediaSource API is not available') // 不支持
-        }
     }
     // 全屏
     const OpenFullScreen = (element) => {
@@ -419,14 +399,6 @@ window.onload = () => {
     }
     // 初始化弹幕
     XHR('GET', `./Subtitles${location.search}`, null, (magess) => (StreamSubtitles.data = JSON.parse(magess), console.log('弹幕测试数据 ==>>', magess)))
-    // 加载直播流
-    GETSTREAM({
-        MediaVideo: document.getElementById('LiveStream'),
-        mimeCodec: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"',
-        FILE: 'http://localhost/public/media/stream/Video.mp4'
-    }, (Error, Fun) => {
-        console.log('==>> GetStream ERROR ', Error, Fun)
-    })
     // 全屏函数监听
     document.addEventListener("fullscreenchange", ViewFullEvent)
     document.addEventListener("mozfullscreenchange", ViewFullEvent)
@@ -444,6 +416,43 @@ window.onload = () => {
     document.getElementById('LiveStream').onprogress = (Event) => {
         console.log('视频测试对象 ==>>', new MediaProject(document.getElementById('LiveStream')))
     }
+    
+    
+    // MediaSource处理
+    // 加载媒体流
+    (({MediaVideo, mimeCodec}, CALLBACK) => {
+        // 初始化 MediaSource
+        let mediaSource = new MediaSource()
+        // 视频地址指向 MediaSource
+        MediaVideo.src = window.URL.createObjectURL(mediaSource)
+        // MediaSource bind 事件
+        mediaSource.onsourceopen = mediaSource.onsourceopen || mediaSource.onwebkitsourceopen
+        mediaSource.onsourceopen = () => CALLBACK(new function(){
+            let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec) // MIME类型
+            // 输入媒体流
+            this.AddMedia = (Fined) => {
+                let Load = new Object()
+                Load.onload = new Function
+                XHR('GET', Fined, null, (InitBuffers) => {
+                    sourceBuffer.addEventListener('updateend', () => Load.onload(Fined, sourceBuffer) ) 
+                    sourceBuffer.appendBuffer(InitBuffers)
+                }, 'arraybuffer')
+                return Load
+            }
+            this.MediaSource = mediaSource
+            this.HTMLElement = MediaVideo
+            // 关闭媒体流
+            this.EndMedia = mediaSource.endOfStream
+        })
+    })({
+        MediaVideo: document.getElementById('LiveStream'), 
+        mimeCodec: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+    }, (Event) => {
+        Event.AddMedia('http://localhost/public/media/stream/Video.mp4').onload = (Path, Stream) => {
+            MediaIum += 1
+            console.log('==>> 写入媒体流', MediaIum, Path, Stream) 
+        }
+    })
     
  
 }

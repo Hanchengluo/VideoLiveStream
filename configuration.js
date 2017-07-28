@@ -4,8 +4,9 @@
 
 module.exports = {
     project:true,  // 开启关闭工厂模式
+    hostname: "localhost",
     express:{
-       port:80     // express绑定端口
+       port:88     // express绑定端口
     },
     mongodb:{
         path:"mongodb://localhost:3306/HomePage",   // mongodb链接
@@ -19,6 +20,7 @@ module.exports = {
     },
     crypto:{
         "crypto":"aes-256-ctr",         // 加密方式
-        "key":"799497ode8cm45571387"    // 加密解密主密钥
+        "key":"799497ode8cm45571387",    // 加密解密主密钥
+        "salt":"xivistudio"  // 加密盐
     }
 }
