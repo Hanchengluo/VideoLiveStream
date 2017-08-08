@@ -430,10 +430,10 @@ window.onload = () => {
         mediaSource.onsourceopen = () => CALLBACK(new function(){
             let sourceBuffer = mediaSource.addSourceBuffer(mimeCodec) // MIME类型
             // 输入媒体流
-            this.AddMedia = (Fined) => {
+            this.AddMedia = Fined => {
                 let Load = new Object()
                 Load.onload = new Function
-                XHR('GET', Fined, null, (InitBuffers) => {
+                XHR('GET', Fined, null, InitBuffers => {
                     sourceBuffer.addEventListener('updateend', () => Load.onload(Fined, sourceBuffer) ) 
                     sourceBuffer.appendBuffer(InitBuffers)
                 }, 'arraybuffer')
@@ -447,7 +447,7 @@ window.onload = () => {
     })({
         MediaVideo: document.getElementById('LiveStream'), 
         mimeCodec: 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-    }, (Event) => {
+    }, Event => {
         Event.AddMedia('http://localhost/public/media/stream/Video.mp4').onload = (Path, Stream) => {
             MediaIum += 1
             console.log('==>> 写入媒体流', MediaIum, Path, Stream) 
